@@ -3,130 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Batch Registration Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Batch Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f5f4f0; --surface: #ffffff; --border: #e2e0d8; --border-strong: #c8c5bb;
-    --text: #1a1917; --text-muted: #6b6860; --text-faint: #9b9890;
-    --accent: #2d5a3d; --accent-light: #e8f0eb; --accent-mid: #4a8c62;
-    --warn: #8b4513; --warn-light: #fdf3ec;
-    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
-  .shell { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
-  .header { margin-bottom: 32px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-  .header p { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
-  .header-actions { display: flex; gap: 8px; align-items: center; }
-  .config-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
-  .config-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
-  .config-field { display: flex; flex-direction: column; gap: 4px; }
-  .config-field.grow { flex: 1; min-width: 160px; }
-  label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
-  input, select { padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-family: var(--mono); font-size: 12px; background: var(--bg); color: var(--text); outline: none; transition: border-color .15s; }
-  input:focus, select:focus { border-color: var(--accent-mid); }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; white-space: nowrap; font-family: var(--sans); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-mid); }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong); }
-  .btn-ghost:hover { background: var(--bg); }
-  .banner { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
-  .banner-warn { background: var(--warn-light); color: var(--warn); border: 1px solid #f0c8a0; }
-  .banner-info { background: var(--accent-light); color: var(--accent); border: 1px solid #b8d4c0; }
-  .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); font-weight: 600; }
-  .stat-value { font-size: 30px; font-weight: 600; letter-spacing: -1px; margin-top: 4px; font-family: var(--mono); }
-  .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
-  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  table { width: 100%; border-collapse: collapse; }
-  thead th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); background: var(--bg); border-bottom: 1px solid var(--border); }
-  tbody tr.batch-row { border-bottom: 1px solid var(--border); cursor: pointer; transition: background .1s; }
-  tbody tr.batch-row:hover { background: #fafaf7; }
-  tbody tr.sub-row { border-bottom: 1px solid var(--border); }
-  tbody tr:last-child { border-bottom: none; }
-  td { padding: 12px 14px; font-size: 13px; vertical-align: middle; }
-  .batch-num { font-family: var(--mono); font-weight: 500; }
-  .pill { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-  .pill-green { background: var(--accent-light); color: var(--accent); }
-  .pill-amber { background: #fef9ec; color: #8b6914; border: 1px solid #f0dfa0; }
-  .pill-gray { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
-  .sub-inner { padding: 10px 14px 14px 42px; background: #fafaf7; }
-  .sub-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 8px; }
-  .sub-list { display: flex; flex-direction: column; gap: 6px; }
-  .sub-item { display: grid; grid-template-columns: 110px 120px 90px 1fr; gap: 10px; align-items: center; font-size: 12px; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; }
-  .sub-date { font-family: var(--mono); color: var(--text-muted); }
-  .sub-count { font-family: var(--mono); font-weight: 500; }
-  .sub-id { font-family: var(--mono); color: var(--text-faint); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .loading { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 14px; }
-  .spin { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .chevron { display: inline-block; transition: transform .2s; color: var(--text-faint); font-size: 9px; margin-right: 2px; }
-  .chevron.open { transform: rotate(90deg); }
-  .last-sync { font-size: 11px; color: var(--text-faint); font-family: var(--mono); }
-  @media (max-width: 600px) {
-    .summary-row { grid-template-columns: 1fr 1fr; }
-    .sub-item { grid-template-columns: 1fr 1fr; }
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f7f5;
+  --card: #ffffff;
+  --border: #ebebeb;
+  --text: #111;
+  --muted: #888;
+  --faint: #bbb;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --amber: #b45309;
+  --amber-bg: #fffbeb;
+  --blue: #2563eb;
+  --blue-bg: #eff6ff;
+  --mono: 'Geist Mono', monospace;
+  --sans: 'Geist', sans-serif;
+}
+body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
+
+/* ── Top bar ── */
+.topbar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar-left { display: flex; align-items: center; gap: 10px; }
+.logo { width: 28px; height: 28px; background: #111; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.logo svg { width: 16px; height: 16px; fill: white; }
+.topbar h1 { font-size: 15px; font-weight: 600; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.sync-time { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; margin-right: 2px; }
+.dot.loading { background: var(--amber); animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── Buttons ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); font-family: var(--sans); transition: all .12s; background: var(--card); color: var(--text); }
+.btn:hover { background: var(--bg); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-dark { background: #111; color: #fff; border-color: #111; }
+.btn-dark:hover { background: #333; }
+.btn svg { width: 14px; height: 14px; }
+
+/* ── Page ── */
+.page { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ── Stats row ── */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+.stat-label { font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+.stat-num { font-size: 32px; font-weight: 600; font-family: var(--mono); line-height: 1; letter-spacing: -1px; }
+.stat-sub { font-size: 12px; color: var(--faint); margin-top: 4px; }
+
+/* ── Section heading ── */
+.section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.section-head h2 { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.dl-row { display: flex; gap: 6px; }
+
+/* ── Table card ── */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  text-align: left; padding: 11px 16px; font-size: 11px; font-weight: 600;
+  color: var(--faint); text-transform: uppercase; letter-spacing: .06em;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.batch-row { cursor: pointer; transition: background .1s; }
+.batch-row:hover td { background: #fafafa; }
+.batch-row td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.sub-row td { padding: 0; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── Batch row cells ── */
+.chev { color: var(--faint); font-size: 10px; transition: transform .2s; display: inline-block; }
+.chev.open { transform: rotate(90deg); }
+.batch-badge { font-family: var(--mono); font-size: 13px; font-weight: 500; }
+.course-cell { max-width: 200px; }
+.course-name { font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.count-big { font-family: var(--mono); font-size: 17px; font-weight: 600; }
+.date-cell { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+.tag-green { background: var(--green-bg); color: var(--green); }
+.tag-amber { background: var(--amber-bg); color: var(--amber); }
+.tag-gray  { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* ── Expanded sub-submissions ── */
+.sub-inner { padding: 12px 16px 16px 48px; background: #fafafa; }
+.sub-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); margin-bottom: 10px; }
+.sub-cards { display: flex; flex-direction: column; gap: 6px; }
+.sub-card {
+  display: grid; grid-template-columns: 100px 130px 110px 1fr;
+  gap: 12px; align-items: center; padding: 10px 14px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px; font-size: 12px;
+}
+.sub-card-date { font-family: var(--mono); color: var(--muted); }
+.sub-card-count { font-family: var(--mono); font-weight: 600; color: var(--text); }
+.sub-card-id { font-family: var(--mono); color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Loading / empty ── */
+.center-msg { text-align: center; padding: 72px 20px; color: var(--muted); }
+.spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: #111; border-radius: 50%; animation: spin .65s linear infinite; margin: 0 auto 14px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ── Banner ── */
+.banner { padding: 12px 16px; border-radius: 10px; font-size: 13px; margin-bottom: 20px; border: 1px solid; line-height: 1.6; }
+.banner-err { background: #fff5f5; color: #c0392b; border-color: #fecaca; }
+.banner-ok  { background: var(--green-bg); color: var(--green); border-color: #bbf7d0; }
+
+/* ── Connection strip ── */
+.conn-strip {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.conn-strip .field { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 120px; }
+.conn-strip label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); }
+.conn-strip input, .conn-strip select {
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 7px;
+  font-family: var(--mono); font-size: 12px; background: var(--bg); color: var(--text); outline: none;
+}
+.conn-strip input:focus, .conn-strip select:focus { border-color: #111; }
+
+@media (max-width: 640px) {
+  .topbar { padding: 0 16px; }
+  .page { padding: 20px 14px 60px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .sub-card { grid-template-columns: 1fr 1fr; }
+}
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="header">
-    <div>
-      <h1>Batch Registration Tracker</h1>
-      <p>karigar_course_form &mdash; eu.kobotoolbox.org</p>
-    </div>
-    <div class="header-actions">
-      <span class="last-sync" id="last-sync"></span>
-      <button class="btn btn-ghost" onclick="toggleConfig()">Settings</button>
-      <button class="btn btn-primary" id="refreshBtn" onclick="fetchData()">&#8635; Refresh</button>
-    </div>
-  </div>
 
-  <div class="config-card" id="config-card" style="display:none">
-    <div class="config-row">
-      <div class="config-field">
-        <label>Server</label>
-        <select id="server">
-          <option value="https://eu.kobotoolbox.org" selected>eu.kobotoolbox.org</option>
-          <option value="https://kf.kobotoolbox.org">kf.kobotoolbox.org</option>
-          <option value="https://kobo.humanitarianresponse.info">kobo.humanitarianresponse.info</option>
-        </select>
-      </div>
-      <div class="config-field grow">
-        <label>API Token</label>
-        <input type="password" id="token" value="be8d9189ac085ed0345b12ee0ae622d4e93b3ba0" />
-      </div>
-      <div class="config-field grow">
-        <label>Asset UID</label>
-        <input type="text" id="uid" value="aUGFUJbP5UG4Y6rthA3LKR" />
-      </div>
-      <button class="btn btn-primary" onclick="fetchData(); toggleConfig()">Apply</button>
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">
+      <svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
     </div>
+    <h1>Batch Tracker</h1>
+  </div>
+  <div class="topbar-right">
+    <span class="sync-time" id="sync-time"></span>
+    <button class="btn" onclick="toggleConn()" id="conn-btn">Settings</button>
+    <button class="btn btn-dark" id="refresh-btn" onclick="fetchData()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2M13.5 2v3h-3"/></svg>
+      Refresh
+    </button>
+  </div>
+</div>
+
+<div class="page">
+  <div class="conn-strip" id="conn-strip" style="display:none">
+    <div class="field">
+      <label>Server</label>
+      <select id="server">
+        <option value="https://eu.kobotoolbox.org" selected>eu.kobotoolbox.org</option>
+        <option value="https://kf.kobotoolbox.org">kf.kobotoolbox.org</option>
+        <option value="https://kobo.humanitarianresponse.info">kobo.humanitarianresponse.info</option>
+      </select>
+    </div>
+    <div class="field" style="flex:2">
+      <label>API Token</label>
+      <input type="password" id="token" value="be8d9189ac085ed0345b12ee0ae622d4e93b3ba0"/>
+    </div>
+    <div class="field" style="flex:1.5">
+      <label>Asset UID</label>
+      <input type="text" id="uid" value="aUGFUJbP5UG4Y6rthA3LKR"/>
+    </div>
+    <button class="btn btn-dark" onclick="fetchData();toggleConn()">Apply</button>
   </div>
 
   <div id="banner-area"></div>
   <div id="loading-area"></div>
+
   <div id="dashboard" style="display:none">
-    <div class="summary-row" id="summary-cards"></div>
-    <div class="section-title">
-      <span>Batches</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span id="batch-count" style="font-family:var(--mono);font-weight:400;color:var(--text-faint);font-size:12px"></span>
-        <button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="downloadCSV('summary')" title="One row per batch">&#8659; Batch summary</button>
-        <button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="downloadCSV('detail')" title="One row per submission">&#8659; All submissions</button>
+    <div class="stats" id="stats"></div>
+
+    <div class="section-head">
+      <h2>Batches</h2>
+      <div class="dl-row">
+        <button class="btn" onclick="downloadCSV('summary')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+          Batch summary
+        </button>
+        <button class="btn" onclick="downloadCSV('students')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+          Student-wise
+        </button>
       </div>
     </div>
-    <div class="table-wrap">
+
+    <div class="card">
       <table>
         <thead>
           <tr>
-            <th style="width:32px"></th>
+            <th style="width:36px"></th>
             <th>Batch</th>
             <th>Course</th>
             <th>Lab / Center</th>
@@ -136,7 +212,7 @@
             <th>Status</th>
           </tr>
         </thead>
-        <tbody id="batch-tbody"></tbody>
+        <tbody id="tbody"></tbody>
       </table>
     </div>
   </div>
@@ -144,41 +220,11 @@
 
 <script>
 const PROXY = 'https://corsproxy.io/?';
-let expandedBatch = null;
-let lastBatches = [];
+let expandedBatch = null, lastBatches = [], lastSubs = [];
 
-function downloadCSV(type) {
-  if (!lastBatches.length) return;
-  let rows, filename;
-  if (type === 'summary') {
-    rows = [['Batch Number', 'Course', 'Lab / Center', 'Submissions', 'Total Students', 'Last Entry Date']];
-    for (const b of lastBatches) {
-      rows.push([b.batch, b.course || '', b.lab || '', b.submissions.length, b.total, fmtDate(b.lastDate)]);
-    }
-    filename = 'batch_summary.csv';
-  } else {
-    rows = [['Batch Number', 'Course', 'Lab / Center', 'Submission Date', 'Students in Submission', 'Running Total', 'Enrollment ID']];
-    for (const b of lastBatches) {
-      const sorted = [...b.submissions].sort((a, c) => a.date.localeCompare(c.date));
-      let running = 0;
-      for (const s of sorted) {
-        running += s.count;
-        rows.push([b.batch, b.course || '', b.lab || '', fmtDate(s.date), s.count, running, s.eid || '']);
-      }
-    }
-    filename = 'all_submissions.csv';
-  }
-  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-}
-
-function toggleConfig() {
-  const c = document.getElementById('config-card');
-  c.style.display = c.style.display === 'none' ? 'block' : 'none';
+function toggleConn() {
+  const s = document.getElementById('conn-strip');
+  s.style.display = s.style.display === 'none' ? 'flex' : 'none';
 }
 
 function getField(row, ...keys) {
@@ -193,15 +239,19 @@ function getField(row, ...keys) {
   return '';
 }
 
+function fmtDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' }); }
+  catch { return d.slice(0,10); }
+}
+
 async function fetchAllPages(server, uid, token) {
-  let results = [];
-  let url = `${server}/api/v2/assets/${uid}/data/?format=json&limit=100`;
+  let results = [], url = `${server}/api/v2/assets/${uid}/data/?format=json&limit=100`;
   while (url) {
-    const proxied = PROXY + encodeURIComponent(url);
-    const res = await fetch(proxied, {
+    const res = await fetch(PROXY + encodeURIComponent(url), {
       headers: { 'Authorization': `Token ${token}`, 'x-requested-with': 'XMLHttpRequest' }
     });
-    if (!res.ok) throw new Error(`API returned ${res.status} — check your token and asset UID`);
+    if (!res.ok) throw new Error(`API error ${res.status} — please check your token and asset UID`);
     const data = await res.json();
     results = results.concat(data.results || []);
     url = data.next || null;
@@ -212,7 +262,7 @@ async function fetchAllPages(server, uid, token) {
 function groupByBatch(subs) {
   const map = {};
   for (const s of subs) {
-    const bn = getField(s, 'batch_number') || '—';
+    const bn = getField(s, 'batch_number') || 'Unknown';
     const ns = parseInt(getField(s, 'num_students')) || 0;
     const course = getField(s, 'selected_course');
     const lab = getField(s, 'lab_center');
@@ -231,116 +281,142 @@ function groupByBatch(subs) {
   });
 }
 
-function fmtDate(d) {
-  if (!d) return '—';
-  try { return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' }); }
-  catch { return d.slice(0, 10); }
-}
-
-function renderSummary(batches, total) {
-  const totalStudents = batches.reduce((s, b) => s + b.total, 0);
-  const totalSubs = batches.reduce((s, b) => s + b.submissions.length, 0);
-  const multiDay = batches.filter(b => b.submissions.length > 1).length;
-  document.getElementById('summary-cards').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">Unique batches</div>
-      <div class="stat-value">${batches.length}</div>
-      <div class="stat-sub">${totalSubs} total submissions</div>
+function renderStats(batches, total) {
+  const students = batches.reduce((s,b) => s+b.total, 0);
+  const multi = batches.filter(b => b.submissions.length > 1).length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat">
+      <div class="stat-label">Batches</div>
+      <div class="stat-num">${batches.length}</div>
+      <div class="stat-sub">${total} total submissions</div>
     </div>
-    <div class="stat-card">
+    <div class="stat">
       <div class="stat-label">Students registered</div>
-      <div class="stat-value">${totalStudents}</div>
+      <div class="stat-num">${students}</div>
       <div class="stat-sub">across all batches</div>
     </div>
-    <div class="stat-card">
+    <div class="stat">
       <div class="stat-label">Multi-day batches</div>
-      <div class="stat-value">${multiDay}</div>
+      <div class="stat-num">${multi}</div>
       <div class="stat-sub">batches with 2+ submissions</div>
     </div>
   `;
-  document.getElementById('batch-count').textContent = `${batches.length} batches`;
 }
 
 function renderTable(batches) {
-  const tbody = document.getElementById('batch-tbody');
+  const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
   if (!batches.length) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:48px;color:var(--text-faint)">No submissions found in this form yet.</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="8"><div class="center-msg"><div class="empty-icon">📋</div>No submissions found yet.</div></td></tr>`;
     return;
   }
   for (const b of batches) {
     const multi = b.submissions.length > 1;
     const isOpen = expandedBatch === b.batch;
-    const statusPill = multi
-      ? `<span class="pill pill-amber">${b.submissions.length} submissions</span>`
-      : `<span class="pill pill-gray">Single submission</span>`;
+    const tag = multi
+      ? `<span class="tag tag-amber">${b.submissions.length} submissions</span>`
+      : `<span class="tag tag-gray">Single</span>`;
+
     const tr = document.createElement('tr');
     tr.className = 'batch-row';
     tr.innerHTML = `
-      <td style="padding-left:14px"><span class="chevron ${isOpen ? 'open' : ''}">&#9658;</span></td>
-      <td><span class="batch-num">Batch ${b.batch}</span></td>
-      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted)">${b.course || '—'}</td>
-      <td style="color:var(--text-muted)">${b.lab || '—'}</td>
-      <td style="font-family:var(--mono)">${b.submissions.length}</td>
-      <td><strong style="font-family:var(--mono);font-size:16px">${b.total}</strong></td>
-      <td style="font-family:var(--mono);font-size:12px;color:var(--text-muted)">${fmtDate(b.lastDate)}</td>
-      <td>${statusPill}</td>
+      <td style="padding-left:16px;width:36px"><span class="chev ${isOpen?'open':''}">&#9658;</span></td>
+      <td><span class="batch-badge">Batch ${b.batch}</span></td>
+      <td class="course-cell">
+        <div class="course-name">${b.course || '—'}</div>
+        <div class="lab-name">${b.lab || ''}</div>
+      </td>
+      <td style="color:var(--muted);font-size:13px">${b.lab || '—'}</td>
+      <td style="font-family:var(--mono);color:var(--muted)">${b.submissions.length}</td>
+      <td><span class="count-big">${b.total}</span></td>
+      <td class="date-cell">${fmtDate(b.lastDate)}</td>
+      <td>${tag}</td>
     `;
     tr.onclick = () => { expandedBatch = isOpen ? null : b.batch; renderTable(batches); };
     tbody.appendChild(tr);
 
     if (isOpen) {
-      const subTr = document.createElement('tr');
-      subTr.className = 'sub-row';
-      const sorted = [...b.submissions].sort((a, c) => a.date.localeCompare(c.date));
+      const sorted = [...b.submissions].sort((a,c) => a.date.localeCompare(c.date));
       let running = 0;
-      const items = sorted.map((s, i) => {
+      const cards = sorted.map((s, i) => {
         running += s.count;
-        return `<div class="sub-item">
-          <span class="sub-date">${fmtDate(s.date)}</span>
-          <span class="sub-count">+${s.count} student${s.count !== 1 ? 's' : ''}</span>
-          <span class="pill ${i === 0 ? 'pill-gray' : 'pill-green'}">running: ${running}</span>
-          <span class="sub-id">${s.eid || ('submission #' + s.id)}</span>
+        return `<div class="sub-card">
+          <span class="sub-card-date">${fmtDate(s.date)}</span>
+          <span class="sub-card-count">+${s.count} student${s.count!==1?'s':''}</span>
+          <span class="tag ${i===0?'tag-gray':'tag-green'}">total so far: ${running}</span>
+          <span class="sub-card-id">${s.eid || 'ID: '+s.id}</span>
         </div>`;
       }).join('');
+      const subTr = document.createElement('tr');
+      subTr.className = 'sub-row';
       subTr.innerHTML = `<td colspan="8"><div class="sub-inner">
-        <div class="sub-title">All submissions for Batch ${b.batch}</div>
-        <div class="sub-list">${items}</div>
+        <div class="sub-label">Submission history — Batch ${b.batch}</div>
+        <div class="sub-cards">${cards}</div>
       </div></td>`;
       tbody.appendChild(subTr);
     }
   }
 }
 
+function downloadCSV(type) {
+  if (!lastBatches.length) return;
+  let rows, filename;
+  if (type === 'summary') {
+    rows = [['Batch Number','Course','Lab / Center','Submissions','Total Students','Last Entry Date']];
+    for (const b of lastBatches)
+      rows.push([b.batch, b.course||'', b.lab||'', b.submissions.length, b.total, fmtDate(b.lastDate)]);
+    filename = 'batch_summary.csv';
+  } else {
+    rows = [['Batch Number','Course','Lab / Center','Enrollment Date','Full Name','Age','Gender','Current Status','School / College','Village / City','Mobile','Email','Student ID','Enrollment ID']];
+    for (const s of lastSubs) {
+      const batch = getField(s,'batch_number'), course = getField(s,'selected_course');
+      const lab = getField(s,'lab_center'), date = getField(s,'enroll_date'), eid = getField(s,'enrollment_id');
+      const students = s['students'] || s['grp_batch/students'] || [];
+      for (const st of students) {
+        const gf = k => { for (const rk of Object.keys(st)) if (rk===k||rk.endsWith('/'+k)) return String(st[rk]||''); return ''; };
+        rows.push([batch,course,lab,date, gf('full_name'),gf('age'),gf('gender'),gf('current_grade'),
+          gf('school_name')||gf('college_name'), gf('address'),gf('mobile_number'),gf('email_id'),gf('student_id'),eid]);
+      }
+    }
+    filename = 'students.csv';
+  }
+  const csv = rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = filename; a.click();
+}
+
 async function fetchData() {
   const server = document.getElementById('server').value;
   const token = document.getElementById('token').value.trim();
   const uid = document.getElementById('uid').value.trim();
-  const bannerArea = document.getElementById('banner-area');
-  bannerArea.innerHTML = '';
+  document.getElementById('banner-area').innerHTML = '';
   document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('loading-area').innerHTML = `<div class="loading"><span class="spin"></span>Fetching submissions…</div>`;
-  document.getElementById('refreshBtn').disabled = true;
+  document.getElementById('loading-area').innerHTML = `<div class="center-msg"><div class="spinner"></div>Loading submissions…</div>`;
+  document.getElementById('refresh-btn').disabled = true;
+  document.getElementById('sync-time').innerHTML = `<span class="dot loading"></span> syncing…`;
 
   try {
     const subs = await fetchAllPages(server, uid, token);
+    lastSubs = subs;
     lastBatches = groupByBatch(subs);
-    renderSummary(lastBatches, subs.length);
+    renderStats(lastBatches, subs.length);
     renderTable(lastBatches);
     document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
-    if (subs.length === 0) {
-      bannerArea.innerHTML = `<div class="banner banner-info">Connected successfully — no submissions yet in this form.</div>`;
-    }
-  } catch (e) {
-    bannerArea.innerHTML = `<div class="banner banner-warn"><strong>Error:</strong> ${e.message}</div>`;
+    const t = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('sync-time').innerHTML = `<span class="dot"></span> ${t}`;
+    if (!subs.length)
+      document.getElementById('banner-area').innerHTML = `<div class="banner banner-ok">Connected — no submissions in this form yet.</div>`;
+  } catch(e) {
+    document.getElementById('banner-area').innerHTML = `<div class="banner banner-err"><strong>Error:</strong> ${e.message}</div>`;
+    document.getElementById('sync-time').innerHTML = '';
   } finally {
     document.getElementById('loading-area').innerHTML = '';
-    document.getElementById('refreshBtn').disabled = false;
+    document.getElementById('refresh-btn').disabled = false;
   }
 }
 
-window.onload = () => fetchData();
+window.onload = fetchData;
 </script>
 </body>
 </html>
