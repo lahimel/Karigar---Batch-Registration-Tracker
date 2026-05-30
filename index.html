@@ -116,7 +116,11 @@
     <div class="summary-row" id="summary-cards"></div>
     <div class="section-title">
       <span>Batches</span>
-      <span id="batch-count" style="font-family:var(--mono);font-weight:400;color:var(--text-faint);font-size:12px"></span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span id="batch-count" style="font-family:var(--mono);font-weight:400;color:var(--text-faint);font-size:12px"></span>
+        <button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="downloadCSV('summary')" title="One row per batch">&#8659; Batch summary</button>
+        <button class="btn btn-ghost" style="padding:5px 12px;font-size:12px" onclick="downloadCSV('detail')" title="One row per submission">&#8659; All submissions</button>
+      </div>
     </div>
     <div class="table-wrap">
       <table>
@@ -141,6 +145,36 @@
 <script>
 const PROXY = 'https://corsproxy.io/?';
 let expandedBatch = null;
+let lastBatches = [];
+
+function downloadCSV(type) {
+  if (!lastBatches.length) return;
+  let rows, filename;
+  if (type === 'summary') {
+    rows = [['Batch Number', 'Course', 'Lab / Center', 'Submissions', 'Total Students', 'Last Entry Date']];
+    for (const b of lastBatches) {
+      rows.push([b.batch, b.course || '', b.lab || '', b.submissions.length, b.total, fmtDate(b.lastDate)]);
+    }
+    filename = 'batch_summary.csv';
+  } else {
+    rows = [['Batch Number', 'Course', 'Lab / Center', 'Submission Date', 'Students in Submission', 'Running Total', 'Enrollment ID']];
+    for (const b of lastBatches) {
+      const sorted = [...b.submissions].sort((a, c) => a.date.localeCompare(c.date));
+      let running = 0;
+      for (const s of sorted) {
+        running += s.count;
+        rows.push([b.batch, b.course || '', b.lab || '', fmtDate(s.date), s.count, running, s.eid || '']);
+      }
+    }
+    filename = 'all_submissions.csv';
+  }
+  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
 
 function toggleConfig() {
   const c = document.getElementById('config-card');
@@ -290,9 +324,9 @@ async function fetchData() {
 
   try {
     const subs = await fetchAllPages(server, uid, token);
-    const batches = groupByBatch(subs);
-    renderSummary(batches, subs.length);
-    renderTable(batches);
+    lastBatches = groupByBatch(subs);
+    renderSummary(lastBatches, subs.length);
+    renderTable(lastBatches);
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
     if (subs.length === 0) {
