@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch Registration Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0; --surface: #ffffff; --border: #e2e0d8; --border-strong: #c8c5bb;
+    --text: #1a1917; --text-muted: #6b6860; --text-faint: #9b9890;
+    --accent: #2d5a3d; --accent-light: #e8f0eb; --accent-mid: #4a8c62;
+    --warn: #8b4513; --warn-light: #fdf3ec;
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+  .shell { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+  .header { margin-bottom: 32px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+  .header p { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .config-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+  .config-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+  .config-field { display: flex; flex-direction: column; gap: 4px; }
+  .config-field.grow { flex: 1; min-width: 160px; }
+  label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
+  input, select { padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-family: var(--mono); font-size: 12px; background: var(--bg); color: var(--text); outline: none; transition: border-color .15s; }
+  input:focus, select:focus { border-color: var(--accent-mid); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; white-space: nowrap; font-family: var(--sans); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-mid); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong); }
+  .btn-ghost:hover { background: var(--bg); }
+  .banner { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
+  .banner-warn { background: var(--warn-light); color: var(--warn); border: 1px solid #f0c8a0; }
+  .banner-info { background: var(--accent-light); color: var(--accent); border: 1px solid #b8d4c0; }
+  .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); font-weight: 600; }
+  .stat-value { font-size: 30px; font-weight: 600; letter-spacing: -1px; margin-top: 4px; font-family: var(--mono); }
+  .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); background: var(--bg); border-bottom: 1px solid var(--border); }
+  tbody tr.batch-row { border-bottom: 1px solid var(--border); cursor: pointer; transition: background .1s; }
+  tbody tr.batch-row:hover { background: #fafaf7; }
+  tbody tr.sub-row { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  td { padding: 12px 14px; font-size: 13px; vertical-align: middle; }
+  .batch-num { font-family: var(--mono); font-weight: 500; }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .pill-green { background: var(--accent-light); color: var(--accent); }
+  .pill-amber { background: #fef9ec; color: #8b6914; border: 1px solid #f0dfa0; }
+  .pill-gray { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+  .sub-inner { padding: 10px 14px 14px 42px; background: #fafaf7; }
+  .sub-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 8px; }
+  .sub-list { display: flex; flex-direction: column; gap: 6px; }
+  .sub-item { display: grid; grid-template-columns: 110px 120px 90px 1fr; gap: 10px; align-items: center; font-size: 12px; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; }
+  .sub-date { font-family: var(--mono); color: var(--text-muted); }
+  .sub-count { font-family: var(--mono); font-weight: 500; }
+  .sub-id { font-family: var(--mono); color: var(--text-faint); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .loading { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 14px; }
+  .spin { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .chevron { display: inline-block; transition: transform .2s; color: var(--text-faint); font-size: 9px; margin-right: 2px; }
+  .chevron.open { transform: rotate(90deg); }
+  .last-sync { font-size: 11px; color: var(--text-faint); font-family: var(--mono); }
+  @media (max-width: 600px) {
+    .summary-row { grid-template-columns: 1fr 1fr; }
+    .sub-item { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="header">
+    <div>
+      <h1>Batch Registration Tracker</h1>
+      <p>karigar_course_form &mdash; eu.kobotoolbox.org</p>
+    </div>
+    <div class="header-actions">
+      <span class="last-sync" id="last-sync"></span>
+      <button class="btn btn-ghost" onclick="toggleConfig()">Settings</button>
+      <button class="btn btn-primary" id="refreshBtn" onclick="fetchData()">&#8635; Refresh</button>
+    </div>
+  </div>
+
+  <div class="config-card" id="config-card" style="display:none">
+    <div class="config-row">
+      <div class="config-field">
+        <label>Server</label>
+        <select id="server">
+          <option value="https://eu.kobotoolbox.org" selected>eu.kobotoolbox.org</option>
+          <option value="https://kf.kobotoolbox.org">kf.kobotoolbox.org</option>
+          <option value="https://kobo.humanitarianresponse.info">kobo.humanitarianresponse.info</option>
+        </select>
+      </div>
+      <div class="config-field grow">
+        <label>API Token</label>
+        <input type="password" id="token" value="be8d9189ac085ed0345b12ee0ae622d4e93b3ba0" />
+      </div>
+      <div class="config-field grow">
+        <label>Asset UID</label>
+        <input type="text" id="uid" value="aUGFUJbP5UG4Y6rthA3LKR" />
+      </div>
+      <button class="btn btn-primary" onclick="fetchData(); toggleConfig()">Apply</button>
+    </div>
+  </div>
+
+  <div id="banner-area"></div>
+  <div id="loading-area"></div>
+  <div id="dashboard" style="display:none">
+    <div class="summary-row" id="summary-cards"></div>
+    <div class="section-title">
+      <span>Batches</span>
+      <span id="batch-count" style="font-family:var(--mono);font-weight:400;color:var(--text-faint);font-size:12px"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:32px"></th>
+            <th>Batch</th>
+            <th>Course</th>
+            <th>Lab / Center</th>
+            <th>Submissions</th>
+            <th>Total students</th>
+            <th>Last entry</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="batch-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://corsproxy.io/?';
+let expandedBatch = null;
+
+function toggleConfig() {
+  const c = document.getElementById('config-card');
+  c.style.display = c.style.display === 'none' ? 'block' : 'none';
+}
+
+function getField(row, ...keys) {
+  for (const k of keys) {
+    for (const rk of Object.keys(row)) {
+      if (rk === k || rk.endsWith('/' + k)) {
+        const v = row[rk];
+        if (v !== null && v !== undefined && v !== '') return String(v);
+      }
+    }
+  }
+  return '';
+}
+
+async function fetchAllPages(server, uid, token) {
+  let results = [];
+  let url = `${server}/api/v2/assets/${uid}/data/?format=json&limit=100`;
+  while (url) {
+    const proxied = PROXY + encodeURIComponent(url);
+    const res = await fetch(proxied, {
+      headers: { 'Authorization': `Token ${token}`, 'x-requested-with': 'XMLHttpRequest' }
+    });
+    if (!res.ok) throw new Error(`API returned ${res.status} — check your token and asset UID`);
+    const data = await res.json();
+    results = results.concat(data.results || []);
+    url = data.next || null;
+  }
+  return results;
+}
+
+function groupByBatch(subs) {
+  const map = {};
+  for (const s of subs) {
+    const bn = getField(s, 'batch_number') || '—';
+    const ns = parseInt(getField(s, 'num_students')) || 0;
+    const course = getField(s, 'selected_course');
+    const lab = getField(s, 'lab_center');
+    const date = s._submission_time || s.end || '';
+    const eid = getField(s, 'enrollment_id');
+    if (!map[bn]) map[bn] = { batch: bn, course, lab, total: 0, submissions: [], lastDate: '' };
+    map[bn].total += ns;
+    map[bn].submissions.push({ date, count: ns, eid, id: s._id || '' });
+    if (date > map[bn].lastDate) map[bn].lastDate = date;
+    if (!map[bn].course && course) map[bn].course = course;
+    if (!map[bn].lab && lab) map[bn].lab = lab;
+  }
+  return Object.values(map).sort((a, b) => {
+    const na = parseInt(a.batch), nb = parseInt(b.batch);
+    return (!isNaN(na) && !isNaN(nb)) ? na - nb : a.batch.localeCompare(b.batch);
+  });
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' }); }
+  catch { return d.slice(0, 10); }
+}
+
+function renderSummary(batches, total) {
+  const totalStudents = batches.reduce((s, b) => s + b.total, 0);
+  const totalSubs = batches.reduce((s, b) => s + b.submissions.length, 0);
+  const multiDay = batches.filter(b => b.submissions.length > 1).length;
+  document.getElementById('summary-cards').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Unique batches</div>
+      <div class="stat-value">${batches.length}</div>
+      <div class="stat-sub">${totalSubs} total submissions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Students registered</div>
+      <div class="stat-value">${totalStudents}</div>
+      <div class="stat-sub">across all batches</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Multi-day batches</div>
+      <div class="stat-value">${multiDay}</div>
+      <div class="stat-sub">batches with 2+ submissions</div>
+    </div>
+  `;
+  document.getElementById('batch-count').textContent = `${batches.length} batches`;
+}
+
+function renderTable(batches) {
+  const tbody = document.getElementById('batch-tbody');
+  tbody.innerHTML = '';
+  if (!batches.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:48px;color:var(--text-faint)">No submissions found in this form yet.</td></tr>';
+    return;
+  }
+  for (const b of batches) {
+    const multi = b.submissions.length > 1;
+    const isOpen = expandedBatch === b.batch;
+    const statusPill = multi
+      ? `<span class="pill pill-amber">${b.submissions.length} submissions</span>`
+      : `<span class="pill pill-gray">Single submission</span>`;
+    const tr = document.createElement('tr');
+    tr.className = 'batch-row';
+    tr.innerHTML = `
+      <td style="padding-left:14px"><span class="chevron ${isOpen ? 'open' : ''}">&#9658;</span></td>
+      <td><span class="batch-num">Batch ${b.batch}</span></td>
+      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted)">${b.course || '—'}</td>
+      <td style="color:var(--text-muted)">${b.lab || '—'}</td>
+      <td style="font-family:var(--mono)">${b.submissions.length}</td>
+      <td><strong style="font-family:var(--mono);font-size:16px">${b.total}</strong></td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--text-muted)">${fmtDate(b.lastDate)}</td>
+      <td>${statusPill}</td>
+    `;
+    tr.onclick = () => { expandedBatch = isOpen ? null : b.batch; renderTable(batches); };
+    tbody.appendChild(tr);
+
+    if (isOpen) {
+      const subTr = document.createElement('tr');
+      subTr.className = 'sub-row';
+      const sorted = [...b.submissions].sort((a, c) => a.date.localeCompare(c.date));
+      let running = 0;
+      const items = sorted.map((s, i) => {
+        running += s.count;
+        return `<div class="sub-item">
+          <span class="sub-date">${fmtDate(s.date)}</span>
+          <span class="sub-count">+${s.count} student${s.count !== 1 ? 's' : ''}</span>
+          <span class="pill ${i === 0 ? 'pill-gray' : 'pill-green'}">running: ${running}</span>
+          <span class="sub-id">${s.eid || ('submission #' + s.id)}</span>
+        </div>`;
+      }).join('');
+      subTr.innerHTML = `<td colspan="8"><div class="sub-inner">
+        <div class="sub-title">All submissions for Batch ${b.batch}</div>
+        <div class="sub-list">${items}</div>
+      </div></td>`;
+      tbody.appendChild(subTr);
+    }
+  }
+}
+
+async function fetchData() {
+  const server = document.getElementById('server').value;
+  const token = document.getElementById('token').value.trim();
+  const uid = document.getElementById('uid').value.trim();
+  const bannerArea = document.getElementById('banner-area');
+  bannerArea.innerHTML = '';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loading-area').innerHTML = `<div class="loading"><span class="spin"></span>Fetching submissions…</div>`;
+  document.getElementById('refreshBtn').disabled = true;
+
+  try {
+    const subs = await fetchAllPages(server, uid, token);
+    const batches = groupByBatch(subs);
+    renderSummary(batches, subs.length);
+    renderTable(batches);
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
+    if (subs.length === 0) {
+      bannerArea.innerHTML = `<div class="banner banner-info">Connected successfully — no submissions yet in this form.</div>`;
+    }
+  } catch (e) {
+    bannerArea.innerHTML = `<div class="banner banner-warn"><strong>Error:</strong> ${e.message}</div>`;
+  } finally {
+    document.getElementById('loading-area').innerHTML = '';
+    document.getElementById('refreshBtn').disabled = false;
+  }
+}
+
+window.onload = () => fetchData();
+</script>
+</body>
+</html>
