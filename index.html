@@ -320,7 +320,7 @@ tr:last-child td{border-bottom:none;}
             <th>Batch</th>
             <th>Course</th>
             <th>Lab / Center</th>
-            <th>Total Students</th>
+            <th>Students Enrolled</th>
             <th>Last Entry</th>
           </tr>
         </thead>
@@ -539,7 +539,7 @@ function downloadCSV(type){
   if(!filtered.length)return;
   let rows,filename;
   if(type==='summary'){
-    rows=[['Batch Number','Course','Lab / Center','Total Students','Last Entry Date']];
+    rows=[['Batch Number','Course','Lab / Center','Students Enrolled','Last Entry Date']];
     for(const b of filtered)rows.push([b.batch,b.course||'',b.lab||'',b.total,fmtDate(b.lastDate)]);
     filename='batch_summary.csv';
   }else{
