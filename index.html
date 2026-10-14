@@ -35,9 +35,8 @@ label{font-size:11px;font-weight:600;letter-spacing:0.04em;color:var(--ink-soft)
 .tile{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--ink);padding:12px 14px;}
 .tile .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-soft);display:block;}
 .tile .val{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;color:var(--teal);}
-.tile.warn{border-left-color:var(--rust);} .tile.warn .val{color:var(--rust);}
 
-.filters{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:2fr repeat(4,1fr);gap:12px;align-items:end;}
+.filters{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px;align-items:end;}
 .filters .f{display:flex;flex-direction:column;gap:5px;min-width:0;}
 .filters .f.wide{grid-column:span 1;}
 .filters .row2{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:end;}
@@ -61,12 +60,9 @@ td .mono,.mono{font-family:"IBM Plex Mono",monospace;}
 td.batch{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15px;white-space:nowrap;}
 td .sub{display:block;font-size:12px;color:var(--ink-soft);}
 .chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:2px;white-space:nowrap;}
-.chip.ongoing,.chip.paid{background:var(--teal-bg);color:var(--teal);}
-.chip.upcoming,.chip.partial{background:var(--brass-bg);color:var(--brass-dark);}
-.chip.completed,.chip.na,.chip.none,.chip.unknown{background:var(--grey-bg);color:var(--ink-soft);}
-.chip.unpaid{background:var(--rust-bg);color:var(--rust);}
-.pending-pos{color:var(--rust);font-weight:600;}
-table.tracker.no-fees .fee-col{display:none !important;}
+.chip.ongoing{background:var(--teal-bg);color:var(--teal);}
+.chip.upcoming{background:var(--brass-bg);color:var(--brass-dark);}
+.chip.completed,.chip.unknown{background:var(--grey-bg);color:var(--ink-soft);}
 .tiles.three{grid-template-columns:repeat(3,1fr);}
 
 /* drawer */
@@ -121,22 +117,19 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
 </header>
 
 <main class="wrap">
-  <section class="tiles" aria-label="Totals for the batches shown">
+  <section class="tiles three" aria-label="Totals for the batches shown">
     <div class="tile"><span class="lbl">Batches shown</span><span class="val" id="tBatches">0</span></div>
     <div class="tile"><span class="lbl">Students</span><span class="val" id="tStudents">0</span></div>
     <div class="tile"><span class="lbl">Ongoing now</span><span class="val" id="tOngoing">0</span></div>
-    <div class="tile warn" id="tilePending"><span class="lbl">Pending fees</span><span class="val" id="tPending">&#8377;0</span></div>
   </section>
 
   <section class="filters" aria-label="Search and filters">
     <div class="f wide">
       <label for="fSearch">Search</label>
-      <input type="search" id="fSearch" placeholder="Batch number, course, school or organization, contact">
+      <input type="search" id="fSearch" placeholder="Batch number, course, center, school contact">
     </div>
     <div class="f"><label for="fStatus">Batch status</label>
       <select id="fStatus"><option value="">All</option><option value="upcoming">Upcoming</option><option value="ongoing">Ongoing</option><option value="completed">Completed</option></select></div>
-    <div class="f"><label for="fPay">Payment</label>
-      <select id="fPay"><option value="">All</option><option value="pending">Has pending balance</option><option value="paid">Fully paid</option><option value="unpaid">Nothing paid yet</option></select></div>
     <div class="f"><label for="fType">Course type</label><select id="fType"><option value="">All</option></select></div>
     <div class="f"><label for="fLab">Training center</label><select id="fLab"><option value="">All</option></select></div>
     <div class="row2">
@@ -148,7 +141,6 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
           <option value="batch_asc">Batch number (oldest first)</option>
           <option value="start_desc">Start date (latest first)</option>
           <option value="start_asc">Start date (earliest first)</option>
-          <option value="pending_desc" id="optPendingSort">Pending fees (highest first)</option>
           <option value="students_desc">Students (most first)</option>
         </select></div>
       <div class="actions">
@@ -165,7 +157,7 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
     <table class="tracker" id="batchTable">
       <thead><tr>
         <th>Batch</th><th>Course</th><th>Dates</th><th>Status</th>
-        <th class="num">Students</th><th class="num fee-col">Total fee</th><th class="num fee-col">Paid</th><th class="num fee-col">Pending</th><th class="fee-col">Payment</th>
+        <th class="num">Students</th>
       </tr></thead>
       <tbody id="batchBody"></tbody>
     </table>
@@ -188,31 +180,25 @@ const CONFIG = {
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxcfBYPy5icC9SxhHRdnTgey1rsldIoONlK-Z6nCp_2MGFbCxULbh5ZOXUjVh3snV5w/exec",
   // The VIEW_TOKEN you add under Script Properties. It can read but never write.
   VIEW_TOKEN: "O6ZWCQQnELlSg3YtSL8EszCBCGmJ90FU",
-  MIN_SCRIPT_VERSION: 12,
-  // false = the batch list and the summary tiles do not show fee, paid or pending amounts.
-  // Payment details are still available inside a batch's detail panel.
-  SHOW_FEES_IN_LIST: false
+  MIN_SCRIPT_VERSION: 12
 };
 // ---------------------------------------------------------------------------
 
 const LABELS = {
   course_type: {exposure_program:'Exposure Program', workshops:'Workshops', thematic_workshops:'Thematic Workshops', training:'Training', structured_courses:'Structured Courses', govt_certification:'Govt. Certification Programs', entrepreneurship:'Entrepreneurship', internship:'Internship', special_programs:'Special Programs'},
   lab: {All:'All Labs', Engineering:'Engineering Lab', Electrical:'Electrical Lab', Mechatronics:'Mechatronics Lab', Agriculture:'Agriculture Lab', Food_Processing:'Food Processing Lab'},
-  fee_status: {full:'Full Paid', partial:'Partial Paid', school_pay:'School Payment', org_pay:'Organization Payment', not_paid:'Not Paid', na:'Not Applicable / Scholarship'},
-  pay_mode: {cash:'Cash', upi:'UPI / GPay / PhonePe', card:'Debit / Credit Card', bank:'Cheque / Bank Transfer'},
   how_know: {friend:'Friend / Family (Referral)', org:'Organization / Institution (Referral)', colleague:'Colleague (Referral)', social_media:'Social Media', website:'Website', ad:'Advertisement', other:'Other', no:'Not Applicable'},
   gender: {male:'Male', female:'Female', other:'Other'},
   grade: {school:'School Student', secondary_iti:'Higher Secondary / ITI / Diploma', college:'College / Degree', working:'Working / Self-Employed', dropout:'Not Studying / Dropout'}
 };
 const STATUS_TEXT = {upcoming:'Upcoming', ongoing:'Ongoing', completed:'Completed', unknown:'No dates'};
-const PAY_TEXT = {paid:'Paid', partial:'Partial', unpaid:'Unpaid', na:'N/A', none:'No fee'};
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const $ = id => document.getElementById(id);
 const els = {
   updated:$('updated'), state:$('state'), count:$('resultCount'), tableWrap:$('tableWrap'), body:$('batchBody'),
-  tBatches:$('tBatches'), tStudents:$('tStudents'), tOngoing:$('tOngoing'), tPending:$('tPending'),
-  search:$('fSearch'), status:$('fStatus'), pay:$('fPay'), type:$('fType'), lab:$('fLab'), from:$('fFrom'), to:$('fTo'), sort:$('fSort'),
+  tBatches:$('tBatches'), tStudents:$('tStudents'), tOngoing:$('tOngoing'),
+  search:$('fSearch'), status:$('fStatus'), type:$('fType'), lab:$('fLab'), from:$('fFrom'), to:$('fTo'), sort:$('fSort'),
   clear:$('btnClear'), refresh:$('btnRefresh'),
   backdrop:$('backdrop'), drawer:$('drawer'), dTitle:$('dTitle'), dSub:$('dSub'), dBody:$('dBody'), dClose:$('dClose')
 };
@@ -224,7 +210,6 @@ let lastFocus = null;
 
 // ---------- helpers ----------
 function pretty(map, key){ return map[key] || (key ? String(key).replace(/_/g,' ') : ''); }
-function rupees(n){ return '\u20B9' + (Number(n) || 0).toLocaleString('en-IN'); }
 function fmtDate(s){
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
   return m ? `${+m[3]} ${MONTHS[+m[2]-1]} ${m[1]}` : (s || '');
@@ -259,22 +244,12 @@ function batchStatus(b){
   if(t > b.course_end_date) return 'completed';
   return 'ongoing';
 }
-function payState(b){
-  if(b.fee_status === 'na') return 'na';
-  if(b.total_fee <= 0) return 'none';
-  if(b.pending <= 0) return 'paid';
-  if(b.fee_paid > 0) return 'partial';
-  return 'unpaid';
-}
 function normalize(raw){
   const b = Object.assign({}, raw);
   b.batchNum = parseInt(b.batch_number, 10);
   if(isNaN(b.batchNum)) b.batchNum = 0;
-  // Scholarship / not-applicable batches owe nothing, whatever the sheet's balance says.
-  b.pending = b.fee_status === 'na' ? 0 : Math.max(Number(b.pending_balance) || 0, 0);
   b.status = batchStatus(b);
-  b.pay = payState(b);
-  b.search = [b.batch_number, b.course_label, b.selected_course, b.paying_org_name, b.school_contact_name, b.school_contact_number,
+  b.search = [b.batch_number, b.course_label, b.selected_course, b.school_contact_name, b.school_contact_number,
     b.referral_name, pretty(LABELS.lab, b.lab_center), pretty(LABELS.course_type, b.course_type)].join(' ').toLowerCase();
   return b;
 }
@@ -370,14 +345,11 @@ function buildOptions(){
 }
 function filtered(){
   const q = els.search.value.trim().toLowerCase();
-  const st = els.status.value, pay = els.pay.value, ty = els.type.value, lab = els.lab.value;
+  const st = els.status.value, ty = els.type.value, lab = els.lab.value;
   const from = els.from.value, to = els.to.value;
   const list = ALL.filter(b=>{
     if(q && !b.search.includes(q)) return false;
     if(st && b.status !== st) return false;
-    if(pay === 'pending' && !(b.pending > 0)) return false;
-    if(pay === 'paid' && b.pay !== 'paid') return false;
-    if(pay === 'unpaid' && b.pay !== 'unpaid') return false;
     if(ty && b.course_type !== ty) return false;
     if(lab && b.lab_center !== lab) return false;
     if(from && !(b.enroll_date >= from)) return false;
@@ -390,7 +362,6 @@ function filtered(){
     batch_asc:(a,b)=>a.batchNum - b.batchNum,
     start_desc:(a,b)=>String(b.enroll_date).localeCompare(String(a.enroll_date)),
     start_asc:(a,b)=>String(a.enroll_date).localeCompare(String(b.enroll_date)),
-    pending_desc:(a,b)=>b.pending - a.pending,
     students_desc:(a,b)=>b.num_students - a.num_students
   }[by];
   return list.sort(cmp);
@@ -404,11 +375,9 @@ function cell(label, cls, children){
 function render(){
   const list = filtered();
   const sumStudents = list.reduce((s,b)=>s + b.num_students, 0);
-  const sumPending = list.reduce((s,b)=>s + b.pending, 0);
   els.tBatches.textContent = list.length;
   els.tStudents.textContent = sumStudents.toLocaleString('en-IN');
   els.tOngoing.textContent = list.filter(b=>b.status === 'ongoing').length;
-  els.tPending.textContent = rupees(sumPending);
   els.count.textContent = list.length === ALL.length
     ? `${ALL.length} batch${ALL.length === 1 ? '' : 'es'}`
     : `${list.length} of ${ALL.length} batches match`;
@@ -444,10 +413,6 @@ function render(){
     ]));
     tr.appendChild(cell('Status', '', [chip(b.status, STATUS_TEXT[b.status])]));
     tr.appendChild(cell('Students', 'num mono', [String(b.num_students)]));
-    tr.appendChild(cell('Total fee', 'num mono fee-col', [rupees(b.total_fee)]));
-    tr.appendChild(cell('Paid', 'num mono fee-col', [rupees(b.fee_paid)]));
-    tr.appendChild(cell('Pending', 'num mono fee-col' + (b.pending > 0 ? ' pending-pos' : ''), [rupees(b.pending)]));
-    tr.appendChild(cell('Payment', 'fee-col', [chip(b.pay, PAY_TEXT[b.pay])]));
     tr.addEventListener('click', ()=>openBatch(b));
     tr.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openBatch(b); } });
     frag.appendChild(tr);
@@ -455,7 +420,7 @@ function render(){
   els.body.appendChild(frag);
 }
 function clearFilters(){
-  els.search.value = ''; els.status.value = ''; els.pay.value = ''; els.type.value = ''; els.lab.value = '';
+  els.search.value = ''; els.status.value = ''; els.type.value = ''; els.lab.value = '';
   els.from.value = ''; els.to.value = ''; els.sort.value = 'batch_desc';
   render();
 }
@@ -482,20 +447,6 @@ function openBatch(b){
     fact('First registered', fmtDateTime(b.created_at)),
     fact('Last updated', fmtDateTime(b.last_updated) + (b.top_up_count > 1 ? ` (${b.top_up_count} submissions)` : '')),
     fact('Heard about us via', pretty(LABELS.how_know, b.how_know) + (b.referral_name ? ' \u2013 ' + b.referral_name : ''))
-  ]));
-
-  els.dBody.appendChild(el('h3', {text:'Payment'}));
-  const proof = /^https:\/\//.test(b.payment_proof_url) ? el('a', {href:b.payment_proof_url, target:'_blank', rel:'noopener noreferrer', text:'Open payment screenshot'}) : null;
-  const proofDd = proof || el('span', {text: b.payment_proof_url ? 'Not available' : '\u2014'});
-  els.dBody.appendChild(el('dl', {class:'facts'}, [
-    fact('Payment status', pretty(LABELS.fee_status, b.fee_status)),
-    fact('Fee per student', rupees(b.fee_per_head)),
-    fact('Total fee', rupees(b.total_fee)),
-    fact('Paid so far', rupees(b.fee_paid)),
-    fact('Pending', rupees(b.pending)),
-    fact('Paying school / organization', b.paying_org_name),
-    fact('Payment mode', pretty(LABELS.pay_mode, b.fee_pay_mode)),
-    el('div', null, [el('dt', {text:'Screenshot'}), el('dd', null, [proofDd])])
   ]));
 
   if(b.mobile_not_shared || b.school_contact_name || b.school_contact_number){
@@ -579,20 +530,13 @@ function showStudents(students, box){
 
 // ---------- wiring ----------
 ['input','change'].forEach(evt=>{
-  [els.search, els.status, els.pay, els.type, els.lab, els.from, els.to, els.sort].forEach(c=>c.addEventListener(evt, render));
+  [els.search, els.status, els.type, els.lab, els.from, els.to, els.sort].forEach(c=>c.addEventListener(evt, render));
 });
 els.clear.addEventListener('click', clearFilters);
 els.refresh.addEventListener('click', load);
 els.dClose.addEventListener('click', closeDrawer);
 els.backdrop.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && els.drawer.classList.contains('open')) closeDrawer(); });
-
-if(!CONFIG.SHOW_FEES_IN_LIST){
-  $('batchTable').classList.add('no-fees');
-  $('tilePending').classList.add('hidden');
-  document.querySelector('.tiles').classList.add('three');
-  const o = $('optPendingSort'); if(o) o.remove();
-}
 
 load();
 </script>
