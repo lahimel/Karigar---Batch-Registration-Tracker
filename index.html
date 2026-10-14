@@ -66,6 +66,8 @@ td .sub{display:block;font-size:12px;color:var(--ink-soft);}
 .chip.completed,.chip.na,.chip.none,.chip.unknown{background:var(--grey-bg);color:var(--ink-soft);}
 .chip.unpaid{background:var(--rust-bg);color:var(--rust);}
 .pending-pos{color:var(--rust);font-weight:600;}
+table.tracker.no-fees .fee-col{display:none !important;}
+.tiles.three{grid-template-columns:repeat(3,1fr);}
 
 /* drawer */
 .backdrop{position:fixed;inset:0;background:rgba(31,42,36,.55);display:none;z-index:40;}
@@ -91,7 +93,7 @@ table.stu th{background:var(--grey-bg);text-align:left;padding:7px 9px;font-size
 table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top;}
 
 @media (max-width:900px){
-  .tiles{grid-template-columns:repeat(2,1fr);}
+  .tiles,.tiles.three{grid-template-columns:repeat(2,1fr);}
   .filters{grid-template-columns:1fr 1fr;}
   .filters .f.wide{grid-column:1/-1;}
 }
@@ -123,7 +125,7 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
     <div class="tile"><span class="lbl">Batches shown</span><span class="val" id="tBatches">0</span></div>
     <div class="tile"><span class="lbl">Students</span><span class="val" id="tStudents">0</span></div>
     <div class="tile"><span class="lbl">Ongoing now</span><span class="val" id="tOngoing">0</span></div>
-    <div class="tile warn"><span class="lbl">Pending fees</span><span class="val" id="tPending">&#8377;0</span></div>
+    <div class="tile warn" id="tilePending"><span class="lbl">Pending fees</span><span class="val" id="tPending">&#8377;0</span></div>
   </section>
 
   <section class="filters" aria-label="Search and filters">
@@ -146,7 +148,7 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
           <option value="batch_asc">Batch number (oldest first)</option>
           <option value="start_desc">Start date (latest first)</option>
           <option value="start_asc">Start date (earliest first)</option>
-          <option value="pending_desc">Pending fees (highest first)</option>
+          <option value="pending_desc" id="optPendingSort">Pending fees (highest first)</option>
           <option value="students_desc">Students (most first)</option>
         </select></div>
       <div class="actions">
@@ -163,7 +165,7 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
     <table class="tracker" id="batchTable">
       <thead><tr>
         <th>Batch</th><th>Course</th><th>Dates</th><th>Status</th>
-        <th class="num">Students</th><th class="num">Total fee</th><th class="num">Paid</th><th class="num">Pending</th><th>Payment</th>
+        <th class="num">Students</th><th class="num fee-col">Total fee</th><th class="num fee-col">Paid</th><th class="num fee-col">Pending</th><th class="fee-col">Payment</th>
       </tr></thead>
       <tbody id="batchBody"></tbody>
     </table>
@@ -186,7 +188,10 @@ const CONFIG = {
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxcfBYPy5icC9SxhHRdnTgey1rsldIoONlK-Z6nCp_2MGFbCxULbh5ZOXUjVh3snV5w/exec",
   // The VIEW_TOKEN you add under Script Properties. It can read but never write.
   VIEW_TOKEN: "O6ZWCQQnELlSg3YtSL8EszCBCGmJ90FU",
-  MIN_SCRIPT_VERSION: 12
+  MIN_SCRIPT_VERSION: 12,
+  // false = the batch list and the summary tiles do not show fee, paid or pending amounts.
+  // Payment details are still available inside a batch's detail panel.
+  SHOW_FEES_IN_LIST: false
 };
 // ---------------------------------------------------------------------------
 
@@ -439,10 +444,10 @@ function render(){
     ]));
     tr.appendChild(cell('Status', '', [chip(b.status, STATUS_TEXT[b.status])]));
     tr.appendChild(cell('Students', 'num mono', [String(b.num_students)]));
-    tr.appendChild(cell('Total fee', 'num mono', [rupees(b.total_fee)]));
-    tr.appendChild(cell('Paid', 'num mono', [rupees(b.fee_paid)]));
-    tr.appendChild(cell('Pending', 'num mono' + (b.pending > 0 ? ' pending-pos' : ''), [rupees(b.pending)]));
-    tr.appendChild(cell('Payment', '', [chip(b.pay, PAY_TEXT[b.pay])]));
+    tr.appendChild(cell('Total fee', 'num mono fee-col', [rupees(b.total_fee)]));
+    tr.appendChild(cell('Paid', 'num mono fee-col', [rupees(b.fee_paid)]));
+    tr.appendChild(cell('Pending', 'num mono fee-col' + (b.pending > 0 ? ' pending-pos' : ''), [rupees(b.pending)]));
+    tr.appendChild(cell('Payment', 'fee-col', [chip(b.pay, PAY_TEXT[b.pay])]));
     tr.addEventListener('click', ()=>openBatch(b));
     tr.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openBatch(b); } });
     frag.appendChild(tr);
@@ -581,6 +586,13 @@ els.refresh.addEventListener('click', load);
 els.dClose.addEventListener('click', closeDrawer);
 els.backdrop.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && els.drawer.classList.contains('open')) closeDrawer(); });
+
+if(!CONFIG.SHOW_FEES_IN_LIST){
+  $('batchTable').classList.add('no-fees');
+  $('tilePending').classList.add('hidden');
+  document.querySelector('.tiles').classList.add('three');
+  const o = $('optPendingSort'); if(o) o.remove();
+}
 
 load();
 </script>
