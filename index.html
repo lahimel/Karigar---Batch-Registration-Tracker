@@ -36,12 +36,11 @@ label{font-size:11px;font-weight:600;letter-spacing:0.04em;color:var(--ink-soft)
 .tile .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-soft);display:block;}
 .tile .val{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;color:var(--teal);}
 
-.filters{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px;align-items:end;}
+.filters{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 14px;align-items:end;}
 .filters .f{display:flex;flex-direction:column;gap:5px;min-width:0;}
-.filters .f.wide{grid-column:span 1;}
-.filters .row2{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:end;}
-.filters .row2 .f{flex:0 1 170px;}
-.filters .actions{margin-left:auto;display:flex;gap:8px;}
+.filters .f.wide{grid-column:span 2;}
+.filters input,.filters select,.filters button{height:38px;width:100%;}
+.filters button{padding-top:0;padding-bottom:0;}
 .count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-soft);margin:14px 2px 8px;}
 
 .state{border:1px dashed var(--line);background:var(--surface);padding:34px 18px;text-align:center;color:var(--ink-soft);font-size:14px;}
@@ -50,10 +49,14 @@ label{font-size:11px;font-weight:600;letter-spacing:0.04em;color:var(--ink-soft)
 .hidden{display:none !important;}
 
 .tablewrap{background:var(--surface);border:1px solid var(--line);overflow-x:auto;}
-table.tracker{border-collapse:collapse;width:100%;font-size:13.5px;}
+table.tracker{border-collapse:collapse;width:100%;font-size:13.5px;table-layout:fixed;}
+table.tracker th.w-batch{width:84px;}
+table.tracker th.w-dates{width:190px;}
+table.tracker th.w-status{width:130px;}
+table.tracker th.w-students{width:104px;}
 table.tracker th{background:var(--ink);color:var(--bg);text-align:left;font-weight:500;padding:9px 10px;font-size:11px;letter-spacing:0.04em;white-space:nowrap;}
 table.tracker th.num,table.tracker td.num{text-align:right;}
-table.tracker td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.tracker td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle;overflow-wrap:anywhere;}
 table.tracker tr.row{cursor:pointer;}
 table.tracker tr.row:hover td{background:#F8F8F4;}
 td .mono,.mono{font-family:"IBM Plex Mono",monospace;}
@@ -90,11 +93,12 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
 
 @media (max-width:900px){
   .tiles,.tiles.three{grid-template-columns:repeat(2,1fr);}
-  .filters{grid-template-columns:1fr 1fr;}
+  .filters{grid-template-columns:repeat(2,minmax(0,1fr));}
   .filters .f.wide{grid-column:1/-1;}
 }
 @media (max-width:760px){
   .wrap{padding:0 12px;}
+  table.tracker{table-layout:auto;}
   table.tracker thead{display:none;}
   table.tracker,table.tracker tbody,table.tracker tr,table.tracker td{display:block;width:100%;}
   table.tracker tr.row{border-bottom:2px solid var(--ink);padding:8px 0;}
@@ -132,22 +136,18 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
       <select id="fStatus"><option value="">All</option><option value="upcoming">Upcoming</option><option value="ongoing">Ongoing</option><option value="completed">Completed</option></select></div>
     <div class="f"><label for="fType">Course type</label><select id="fType"><option value="">All</option></select></div>
     <div class="f"><label for="fLab">Training center</label><select id="fLab"><option value="">All</option></select></div>
-    <div class="row2">
-      <div class="f"><label for="fFrom">Starts on or after</label><input type="date" id="fFrom"></div>
-      <div class="f"><label for="fTo">Starts on or before</label><input type="date" id="fTo"></div>
-      <div class="f"><label for="fSort">Sort by</label>
-        <select id="fSort">
-          <option value="batch_desc">Batch number (newest first)</option>
-          <option value="batch_asc">Batch number (oldest first)</option>
-          <option value="start_desc">Start date (latest first)</option>
-          <option value="start_asc">Start date (earliest first)</option>
-          <option value="students_desc">Students (most first)</option>
-        </select></div>
-      <div class="actions">
-        <button type="button" id="btnClear">Clear filters</button>
-        <button type="button" class="primary" id="btnRefresh">Refresh</button>
-      </div>
-    </div>
+    <div class="f"><label for="fFrom">Starts on or after</label><input type="date" id="fFrom"></div>
+    <div class="f"><label for="fTo">Starts on or before</label><input type="date" id="fTo"></div>
+    <div class="f"><label for="fSort">Sort by</label>
+      <select id="fSort">
+        <option value="batch_desc">Batch number (newest first)</option>
+        <option value="batch_asc">Batch number (oldest first)</option>
+        <option value="start_desc">Start date (latest first)</option>
+        <option value="start_asc">Start date (earliest first)</option>
+        <option value="students_desc">Students (most first)</option>
+      </select></div>
+    <button type="button" id="btnClear">Clear filters</button>
+    <button type="button" class="primary" id="btnRefresh">Refresh</button>
   </section>
 
   <div class="count" id="resultCount" aria-live="polite"></div>
@@ -156,8 +156,8 @@ table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top
   <div class="tablewrap hidden" id="tableWrap">
     <table class="tracker" id="batchTable">
       <thead><tr>
-        <th>Batch</th><th>Course</th><th>Dates</th><th>Status</th>
-        <th class="num">Students</th>
+        <th class="w-batch">Batch</th><th>Course</th><th class="w-dates">Dates</th><th class="w-status">Status</th>
+        <th class="num w-students">Students</th>
       </tr></thead>
       <tbody id="batchBody"></tbody>
     </table>
