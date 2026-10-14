@@ -2,608 +2,587 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="data:image/png;base64,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"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karigar - Batch Tracker</title>
+<title>Karigar: Batch Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#faf9f7;
-  --card:#ffffff;
-  --border:#edeae4;
-  --border2:#d8d3ca;
-  --text:#1c1a17;
-  --muted:#7a736a;
-  --faint:#b8b0a5;
-  --brand:#8b4b1f;
-  --brand-light:#fdf2eb;
-  --brand-mid:#a85d2a;
-  --green:#15803d;
-  --green-bg:#f0fdf4;
-  --amber:#92400e;
-  --amber-bg:#fffbeb;
-  --sans:'Calibri','Gill Sans','Optima',sans-serif;
-  --mono:'Consolas','Cascadia Code','Courier New',monospace;
-  --radius:12px;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --bg:#F5F6F1; --surface:#FFFFFF; --ink:#1F2A24; --ink-soft:#5B6B62; --line:#DCE1D8;
+  --brass:#A9782E; --brass-dark:#8A611F; --brass-bg:#F1EBDD;
+  --teal:#3D6B63; --teal-bg:#E4EEEB; --rust:#B23A2A; --rust-bg:#FBEAE6; --grey-bg:#ECEEE8;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.45;padding-bottom:60px;}
+body.drawer-open{overflow:hidden;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
+header.top{border-bottom:2px solid var(--ink);padding:24px 0 18px;}
+header.top .wrap{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;}
+.brand small{display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-dark);margin-top:4px;}
+.top-note{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-soft);}
+button{font-family:system-ui,sans-serif;font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:3px;border:1px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer;}
+button:hover{background:#F0F0EC;}
+button.primary{background:var(--ink);color:#fff;}
+button.primary:hover{background:#33463B;}
+button:disabled{opacity:.5;cursor:not-allowed;}
+input,select{font-family:system-ui,sans-serif;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--ink);min-width:0;}
+input:focus,select:focus,button:focus-visible,tr.row:focus-visible{outline:2px solid var(--brass);outline-offset:1px;}
+label{font-size:11px;font-weight:600;letter-spacing:0.04em;color:var(--ink-soft);}
 
-/* ── Topbar ── */
-.topbar{
-  background:var(--card);border-bottom:1px solid var(--border);
-  padding:0 20px;height:60px;display:flex;align-items:center;
-  justify-content:space-between;position:sticky;top:0;z-index:20;
-  box-shadow:var(--shadow);
-}
-.topbar-left{display:flex;align-items:center;gap:12px;}
-.topbar-logo{height:42px;width:auto;display:block;}
-.topbar-title{font-size:16px;font-weight:700;color:var(--brand);letter-spacing:-0.2px;}
-.topbar-subtitle{font-size:11px;color:var(--muted);margin-top:1px;}
-.topbar-right{display:flex;align-items:center;gap:8px;}
-.sync-pill{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:4px 10px;border-radius:20px;font-size:12px;font-family:var(--mono);
-  background:var(--green-bg);color:var(--green);border:1px solid #bbf7d0;
-}
-.sync-pill.syncing{background:var(--amber-bg);color:var(--amber);border-color:#fde68a;}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;}
-.dot.pulse{animation:pulse 1s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 16px;}
+.tile{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--ink);padding:12px 14px;}
+.tile .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-soft);display:block;}
+.tile .val{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;color:var(--teal);}
+.tile.warn{border-left-color:var(--rust);} .tile.warn .val{color:var(--rust);}
 
-/* ── Buttons ── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
-  border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;
-  border:1px solid var(--border2);font-family:var(--sans);
-  transition:all .13s;background:var(--card);color:var(--text);
-  white-space:nowrap;
-}
-.btn:hover{background:var(--bg);border-color:var(--brand);color:var(--brand);}
-.btn:active{transform:scale(.98);}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-.btn-brand{background:var(--brand);color:#fff;border-color:var(--brand);}
-.btn-brand:hover{background:var(--brand-mid);color:#fff;border-color:var(--brand-mid);}
-.btn svg{width:15px;height:15px;flex-shrink:0;}
-.btn-icon{padding:8px;border-radius:8px;}
-.btn-ghost{background:transparent;border-color:transparent;color:var(--muted);padding:8px 10px;}
-.btn-ghost:hover{background:var(--bg);border-color:var(--border2);color:var(--brand);}
+.filters{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:2fr repeat(4,1fr);gap:12px;align-items:end;}
+.filters .f{display:flex;flex-direction:column;gap:5px;min-width:0;}
+.filters .f.wide{grid-column:span 1;}
+.filters .row2{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:end;}
+.filters .row2 .f{flex:0 1 170px;}
+.filters .actions{margin-left:auto;display:flex;gap:8px;}
+.count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-soft);margin:14px 2px 8px;}
 
-/* ── Page ── */
-.page{max-width:960px;margin:0 auto;padding:24px 16px 80px;}
+.state{border:1px dashed var(--line);background:var(--surface);padding:34px 18px;text-align:center;color:var(--ink-soft);font-size:14px;}
+.state.error{border-color:var(--rust);background:var(--rust-bg);color:var(--rust);}
+.state button{margin-top:12px;}
+.hidden{display:none !important;}
 
-/* ── Settings panel ── */
-.settings-panel{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:16px;margin-bottom:20px;box-shadow:var(--shadow);
-  display:none;
-}
-.settings-panel.open{display:block;}
-.settings-grid{display:grid;grid-template-columns:1fr 2fr 1.5fr;gap:10px;align-items:end;}
-.field{display:flex;flex-direction:column;gap:4px;}
-.field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);}
-.field input,.field select{
-  padding:8px 12px;border:1px solid var(--border2);border-radius:8px;
-  font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text);
-  outline:none;transition:border .12s;
-}
-.field input:focus,.field select:focus{border-color:var(--brand);}
-.settings-footer{display:flex;justify-content:flex-end;margin-top:12px;}
+.tablewrap{background:var(--surface);border:1px solid var(--line);overflow-x:auto;}
+table.tracker{border-collapse:collapse;width:100%;font-size:13.5px;}
+table.tracker th{background:var(--ink);color:var(--bg);text-align:left;font-weight:500;padding:9px 10px;font-size:11px;letter-spacing:0.04em;white-space:nowrap;}
+table.tracker th.num,table.tracker td.num{text-align:right;}
+table.tracker td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.tracker tr.row{cursor:pointer;}
+table.tracker tr.row:hover td{background:#F8F8F4;}
+td .mono,.mono{font-family:"IBM Plex Mono",monospace;}
+td.batch{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15px;white-space:nowrap;}
+td .sub{display:block;font-size:12px;color:var(--ink-soft);}
+.chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:2px;white-space:nowrap;}
+.chip.ongoing,.chip.paid{background:var(--teal-bg);color:var(--teal);}
+.chip.upcoming,.chip.partial{background:var(--brass-bg);color:var(--brass-dark);}
+.chip.completed,.chip.na,.chip.none,.chip.unknown{background:var(--grey-bg);color:var(--ink-soft);}
+.chip.unpaid{background:var(--rust-bg);color:var(--rust);}
+.pending-pos{color:var(--rust);font-weight:600;}
 
-/* ── Filter bar ── */
-.filter-bar{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:14px 16px;margin-bottom:20px;box-shadow:var(--shadow);
-  display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;
-}
-.filter-bar-label{
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--brand);padding-bottom:2px;white-space:nowrap;
-  display:flex;align-items:center;gap:6px;
-}
-.filter-bar-label svg{width:14px;height:14px;}
-.filter-fields{display:flex;gap:12px;flex:1;flex-wrap:wrap;}
-.filter-fields .field{flex:1;min-width:140px;}
-.filter-fields .field select{font-family:var(--sans);font-size:13px;}
-.filter-reset{
-  display:none;align-items:center;
-  padding-bottom:1px;
-}
-.filter-reset.visible{display:flex;}
-.active-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--brand);display:inline-block;
-  animation:pulse 1.5s infinite;
-}
+/* drawer */
+.backdrop{position:fixed;inset:0;background:rgba(31,42,36,.55);display:none;z-index:40;}
+.backdrop.open{display:block;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(780px,100%);background:var(--surface);border-left:2px solid var(--ink);z-index:41;display:none;flex-direction:column;}
+.drawer.open{display:flex;}
+.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:16px 20px;border-bottom:2px solid var(--ink);}
+.drawer-head h2{margin:0;font-family:"Space Grotesk",system-ui,sans-serif;font-size:21px;letter-spacing:-0.01em;}
+.drawer-head .sub{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+.drawer-body{padding:16px 20px 30px;overflow-y:auto;flex:1;}
+.drawer h3{font-family:"Space Grotesk",system-ui,sans-serif;font-size:15px;margin:22px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);}
+.drawer h3:first-child{margin-top:4px;}
+dl.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 18px;margin:0;}
+dl.facts div{min-width:0;}
+dl.facts dt{font-size:11px;font-weight:600;letter-spacing:0.04em;color:var(--ink-soft);}
+dl.facts dd{margin:2px 0 0;font-size:14px;overflow-wrap:anywhere;}
+.notice{background:var(--brass-bg);border:1px dashed var(--brass);color:var(--brass-dark);padding:9px 12px;border-radius:3px;font-size:13px;margin:10px 0 0;}
+.stu-tools{display:flex;gap:10px;align-items:center;margin:0 0 8px;flex-wrap:wrap;}
+.stu-tools input{flex:1;min-width:160px;}
+.stu-wrap{border:1px solid var(--line);overflow-x:auto;}
+table.stu{border-collapse:collapse;width:100%;font-size:13px;min-width:760px;}
+table.stu th{background:var(--grey-bg);text-align:left;padding:7px 9px;font-size:11px;white-space:nowrap;}
+table.stu td{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top;}
 
-/* ── Stats ── */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
-.stat{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+@media (max-width:900px){
+  .tiles{grid-template-columns:repeat(2,1fr);}
+  .filters{grid-template-columns:1fr 1fr;}
+  .filters .f.wide{grid-column:1/-1;}
 }
-.stat::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--brand);border-radius:var(--radius) var(--radius) 0 0;
-}
-.stat-label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
-.stat-num{font-size:36px;font-weight:700;font-family:var(--sans);line-height:1;color:var(--brand);letter-spacing:-1px;}
-.stat-sub{font-size:12px;color:var(--faint);margin-top:4px;}
-
-/* ── Section head ── */
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
-.section-head h2{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
-.dl-row{display:flex;gap:8px;flex-wrap:wrap;}
-
-/* ── Table card ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
-table{width:100%;border-collapse:collapse;}
-thead th{
-  text-align:left;padding:12px 16px;font-size:11px;font-weight:700;
-  color:var(--faint);text-transform:uppercase;letter-spacing:.07em;font-family:var(--sans);
-  background:var(--bg);border-bottom:1px solid var(--border);
-}
-.batch-row td{padding:15px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
-tr:last-child td{border-bottom:none;}
-
-/* ── Cells ── */
-.batch-badge{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--brand);}
-.course-name{font-size:14px;color:var(--text);}
-.count-big{font-family:var(--sans);font-size:20px;font-weight:700;color:var(--text);}
-.date-cell{font-family:var(--mono);font-size:12px;color:var(--muted);}
-
-/* ── Loading / empty ── */
-.center-msg{text-align:center;padding:64px 20px;color:var(--muted);}
-.spinner{width:28px;height:28px;border:2.5px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── Banner ── */
-.banner{padding:12px 16px;border-radius:10px;font-size:14px;margin-bottom:18px;border:1px solid;line-height:1.6;}
-.banner-err{background:#fff5f5;color:#c0392b;border-color:#fecaca;}
-.banner-ok{background:var(--green-bg);color:var(--green);border-color:#bbf7d0;}
-
-/* ── Mobile cards ── */
-.mobile-batch-list{display:none;flex-direction:column;gap:10px;}
-.mobile-batch-card{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  box-shadow:var(--shadow);overflow:hidden;
-}
-.mobile-batch-header{
-  padding:16px;display:flex;align-items:center;justify-content:space-between;
-  border-left:4px solid var(--brand);
-}
-.mobile-batch-meta{flex:1;}
-.mobile-batch-num{font-size:16px;font-weight:700;color:var(--brand);}
-.mobile-batch-course{font-size:13px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px;}
-.mobile-batch-right{text-align:right;flex-shrink:0;margin-left:12px;}
-.mobile-batch-count{font-size:26px;font-weight:700;color:var(--text);line-height:1;}
-.mobile-batch-label{font-size:11px;color:var(--faint);margin-top:2px;}
-.mobile-batch-footer{
-  padding:10px 16px;background:var(--bg);border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.mobile-batch-date{font-size:12px;font-family:var(--mono);color:var(--muted);}
-.mobile-batch-lab{font-size:12px;color:var(--muted);}
-
-/* ── Responsive ── */
-@media(max-width:700px){
-  .topbar-subtitle{display:none;}
-  .topbar-title{font-size:14px;}
-  .sync-pill span:not(.dot){display:none;}
-  .sync-pill{padding:5px 8px;}
-  .stats{grid-template-columns:1fr 1fr;gap:10px;}
-  .stats .stat:last-child{grid-column:1/-1;}
-  .stat-num{font-size:30px;}
-  .dl-row .btn{font-size:13px;padding:7px 12px;}
-  .card table{display:none;}
-  .mobile-batch-list{display:flex;}
-  .settings-grid{grid-template-columns:1fr;}
-  .filter-bar{flex-direction:column;align-items:stretch;gap:10px;}
-  .filter-bar-label{margin-bottom:2px;}
-  .filter-fields{flex-direction:column;gap:8px;}
-}
-@media(max-width:400px){
-  .stats{grid-template-columns:1fr;}
-  .stats .stat:last-child{grid-column:auto;}
-  .topbar-logo{height:36px;}
+@media (max-width:760px){
+  .wrap{padding:0 12px;}
+  table.tracker thead{display:none;}
+  table.tracker,table.tracker tbody,table.tracker tr,table.tracker td{display:block;width:100%;}
+  table.tracker tr.row{border-bottom:2px solid var(--ink);padding:8px 0;}
+  table.tracker td{border:none;padding:4px 12px;display:flex;justify-content:space-between;gap:12px;text-align:right;}
+  table.tracker td::before{content:attr(data-label);font-size:11px;font-weight:600;color:var(--ink-soft);text-align:left;flex:0 0 84px;}
+  table.tracker td.batch{font-size:16px;}
+  table.tracker td.num{text-align:right;}
+  table.tracker td .sub{text-align:right;}
+  dl.facts{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-left">
-    <img src="data:image/png;base64,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" class="topbar-logo" alt="Karigar"/>
-    <div>
-      <div class="topbar-title">Batch Tracker</div>
-      <div class="topbar-subtitle">karigar_course_form</div>
-    </div>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Karigar<small>Batch Tracker</small></div>
+    <div class="top-note" id="updated"></div>
   </div>
-  <div class="topbar-right">
-    <span class="sync-pill syncing" id="sync-pill" style="display:none">
-      <span class="dot pulse"></span><span id="sync-text">syncing</span>
-    </span>
-    <button class="btn btn-icon" onclick="toggleSettings()" title="Settings" id="settings-btn">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M3.2 12.8l1-1M11.8 4.2l1-1"/></svg>
-    </button>
-    <button class="btn btn-brand" id="refresh-btn" onclick="fetchData()">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2M13.5 2v3h-3"/></svg>
-      Refresh
-    </button>
+</header>
+
+<main class="wrap">
+  <section class="tiles" aria-label="Totals for the batches shown">
+    <div class="tile"><span class="lbl">Batches shown</span><span class="val" id="tBatches">0</span></div>
+    <div class="tile"><span class="lbl">Students</span><span class="val" id="tStudents">0</span></div>
+    <div class="tile"><span class="lbl">Ongoing now</span><span class="val" id="tOngoing">0</span></div>
+    <div class="tile warn"><span class="lbl">Pending fees</span><span class="val" id="tPending">&#8377;0</span></div>
+  </section>
+
+  <section class="filters" aria-label="Search and filters">
+    <div class="f wide">
+      <label for="fSearch">Search</label>
+      <input type="search" id="fSearch" placeholder="Batch number, course, school or organization, contact">
+    </div>
+    <div class="f"><label for="fStatus">Batch status</label>
+      <select id="fStatus"><option value="">All</option><option value="upcoming">Upcoming</option><option value="ongoing">Ongoing</option><option value="completed">Completed</option></select></div>
+    <div class="f"><label for="fPay">Payment</label>
+      <select id="fPay"><option value="">All</option><option value="pending">Has pending balance</option><option value="paid">Fully paid</option><option value="unpaid">Nothing paid yet</option></select></div>
+    <div class="f"><label for="fType">Course type</label><select id="fType"><option value="">All</option></select></div>
+    <div class="f"><label for="fLab">Training center</label><select id="fLab"><option value="">All</option></select></div>
+    <div class="row2">
+      <div class="f"><label for="fFrom">Starts on or after</label><input type="date" id="fFrom"></div>
+      <div class="f"><label for="fTo">Starts on or before</label><input type="date" id="fTo"></div>
+      <div class="f"><label for="fSort">Sort by</label>
+        <select id="fSort">
+          <option value="batch_desc">Batch number (newest first)</option>
+          <option value="batch_asc">Batch number (oldest first)</option>
+          <option value="start_desc">Start date (latest first)</option>
+          <option value="start_asc">Start date (earliest first)</option>
+          <option value="pending_desc">Pending fees (highest first)</option>
+          <option value="students_desc">Students (most first)</option>
+        </select></div>
+      <div class="actions">
+        <button type="button" id="btnClear">Clear filters</button>
+        <button type="button" class="primary" id="btnRefresh">Refresh</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="count" id="resultCount" aria-live="polite"></div>
+  <div class="state" id="state">Loading batches&hellip;</div>
+
+  <div class="tablewrap hidden" id="tableWrap">
+    <table class="tracker" id="batchTable">
+      <thead><tr>
+        <th>Batch</th><th>Course</th><th>Dates</th><th>Status</th>
+        <th class="num">Students</th><th class="num">Total fee</th><th class="num">Paid</th><th class="num">Pending</th><th>Payment</th>
+      </tr></thead>
+      <tbody id="batchBody"></tbody>
+    </table>
   </div>
-</div>
+</main>
 
-<div class="page">
-  <div class="settings-panel" id="settings-panel">
-    <div class="settings-grid">
-      <div class="field">
-        <label>Server</label>
-        <select id="server">
-          <option value="https://eu.kobotoolbox.org" selected>eu.kobotoolbox.org</option>
-          <option value="https://kf.kobotoolbox.org">kf.kobotoolbox.org</option>
-          <option value="https://kobo.humanitarianresponse.info">kobo.humanitarianresponse.info</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>API Token</label>
-        <input type="password" id="token" value="be8d9189ac085ed0345b12ee0ae622d4e93b3ba0"/>
-      </div>
-      <div class="field">
-        <label>Asset UID</label>
-        <input type="text" id="uid" value="aUGFUJbP5UG4Y6rthA3LKR"/>
-      </div>
-    </div>
-    <div class="settings-footer">
-      <button class="btn btn-brand" onclick="fetchData();toggleSettings()">Apply & Reload</button>
-    </div>
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="drawer-head">
+    <div><h2 id="dTitle"></h2><div class="sub" id="dSub"></div></div>
+    <button type="button" id="dClose">Close</button>
   </div>
-
-  <div id="banner-area"></div>
-  <div id="loading-area"></div>
-
-  <div id="dashboard" style="display:none">
-
-    <!-- Filter bar -->
-    <div class="filter-bar">
-      <div class="filter-bar-label">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M4 8h8M6 12h4"/></svg>
-        Filter
-      </div>
-      <div class="filter-fields">
-        <div class="field">
-          <label>Course</label>
-          <select id="filter-course" onchange="applyFilters()">
-            <option value="">All Courses</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Lab / Center</label>
-          <select id="filter-lab" onchange="applyFilters()">
-            <option value="">All Labs</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Month</label>
-          <select id="filter-month" onchange="applyFilters()">
-            <option value="">All Months</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-reset" id="filter-reset">
-        <button class="btn btn-ghost" onclick="resetFilters()" style="font-size:13px;gap:5px">
-          <span class="active-dot"></span> Reset
-        </button>
-      </div>
-    </div>
-
-    <div class="stats" id="stats"></div>
-
-    <div class="section-head">
-      <h2 id="section-title">All Batches</h2>
-      <div class="dl-row">
-        <button class="btn" onclick="downloadCSV('summary')">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
-          Batch summary
-        </button>
-        <button class="btn" onclick="downloadCSV('students')">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
-          Student-wise
-        </button>
-      </div>
-    </div>
-
-    <!-- Desktop table -->
-    <div class="card">
-      <table>
-        <thead>
-          <tr>
-            <th>Batch</th>
-            <th>Course</th>
-            <th>Lab / Center</th>
-            <th>Students Enrolled</th>
-            <th>Last Entry</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-
-    <!-- Mobile cards -->
-    <div class="mobile-batch-list" id="mobile-list"></div>
-  </div>
-</div>
+  <div class="drawer-body" id="dBody"></div>
+</aside>
 
 <script>
-const PROXY='https://corsproxy.io/?';
-let lastBatches=[],lastSubs=[];
+// ---- CONFIG: fill these in ------------------------------------------------
+const CONFIG = {
+  // Same Web app URL your registration form uses (CONFIG.APPS_SCRIPT_URL in index.html).
+  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_URL_HERE",
+  // The VIEW_TOKEN you add under Script Properties. It can read but never write.
+  VIEW_TOKEN: "PASTE_YOUR_VIEW_TOKEN_HERE",
+  MIN_SCRIPT_VERSION: 12
+};
+// ---------------------------------------------------------------------------
 
-function toggleSettings(){
-  document.getElementById('settings-panel').classList.toggle('open');
+const LABELS = {
+  course_type: {exposure_program:'Exposure Program', workshops:'Workshops', thematic_workshops:'Thematic Workshops', training:'Training', structured_courses:'Structured Courses', govt_certification:'Govt. Certification Programs', entrepreneurship:'Entrepreneurship', internship:'Internship', special_programs:'Special Programs'},
+  lab: {All:'All Labs', Engineering:'Engineering Lab', Electrical:'Electrical Lab', Mechatronics:'Mechatronics Lab', Agriculture:'Agriculture Lab', Food_Processing:'Food Processing Lab'},
+  fee_status: {full:'Full Paid', partial:'Partial Paid', school_pay:'School Payment', org_pay:'Organization Payment', not_paid:'Not Paid', na:'Not Applicable / Scholarship'},
+  pay_mode: {cash:'Cash', upi:'UPI / GPay / PhonePe', card:'Debit / Credit Card', bank:'Cheque / Bank Transfer'},
+  how_know: {friend:'Friend / Family (Referral)', org:'Organization / Institution (Referral)', colleague:'Colleague (Referral)', social_media:'Social Media', website:'Website', ad:'Advertisement', other:'Other', no:'Not Applicable'},
+  gender: {male:'Male', female:'Female', other:'Other'},
+  grade: {school:'School Student', secondary_iti:'Higher Secondary / ITI / Diploma', college:'College / Degree', working:'Working / Self-Employed', dropout:'Not Studying / Dropout'}
+};
+const STATUS_TEXT = {upcoming:'Upcoming', ongoing:'Ongoing', completed:'Completed', unknown:'No dates'};
+const PAY_TEXT = {paid:'Paid', partial:'Partial', unpaid:'Unpaid', na:'N/A', none:'No fee'};
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const $ = id => document.getElementById(id);
+const els = {
+  updated:$('updated'), state:$('state'), count:$('resultCount'), tableWrap:$('tableWrap'), body:$('batchBody'),
+  tBatches:$('tBatches'), tStudents:$('tStudents'), tOngoing:$('tOngoing'), tPending:$('tPending'),
+  search:$('fSearch'), status:$('fStatus'), pay:$('fPay'), type:$('fType'), lab:$('fLab'), from:$('fFrom'), to:$('fTo'), sort:$('fSort'),
+  clear:$('btnClear'), refresh:$('btnRefresh'),
+  backdrop:$('backdrop'), drawer:$('drawer'), dTitle:$('dTitle'), dSub:$('dSub'), dBody:$('dBody'), dClose:$('dClose')
+};
+
+let ALL = [];
+const studentCache = new Map();
+let scriptChecked = false;
+let lastFocus = null;
+
+// ---------- helpers ----------
+function pretty(map, key){ return map[key] || (key ? String(key).replace(/_/g,' ') : ''); }
+function rupees(n){ return '\u20B9' + (Number(n) || 0).toLocaleString('en-IN'); }
+function fmtDate(s){
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
+  return m ? `${+m[3]} ${MONTHS[+m[2]-1]} ${m[1]}` : (s || '');
+}
+function fmtDateTime(s){
+  const m = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})/.exec(s || '');
+  return m ? `${fmtDate(m[1])}, ${m[2]}` : fmtDate(s);
+}
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+const ISO = /^\d{4}-\d{2}-\d{2}/;
+function el(tag, props, children){
+  const n = document.createElement(tag);
+  if(props){ Object.keys(props).forEach(k=>{
+    if(k === 'class') n.className = props[k];
+    else if(k === 'text') n.textContent = props[k];
+    else if(k === 'dataset') Object.assign(n.dataset, props[k]);
+    else n.setAttribute(k, props[k]);
+  }); }
+  (children || []).forEach(c=>{ if(c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+  return n;
+}
+function chip(kind, text){ return el('span', {class:'chip ' + kind, text}); }
+
+// ---------- derived fields ----------
+function batchStatus(b){
+  if(!ISO.test(b.enroll_date) || !ISO.test(b.course_end_date)) return 'unknown';
+  const t = todayStr();
+  if(t < b.enroll_date) return 'upcoming';
+  if(t > b.course_end_date) return 'completed';
+  return 'ongoing';
+}
+function payState(b){
+  if(b.fee_status === 'na') return 'na';
+  if(b.total_fee <= 0) return 'none';
+  if(b.pending <= 0) return 'paid';
+  if(b.fee_paid > 0) return 'partial';
+  return 'unpaid';
+}
+function normalize(raw){
+  const b = Object.assign({}, raw);
+  b.batchNum = parseInt(b.batch_number, 10);
+  if(isNaN(b.batchNum)) b.batchNum = 0;
+  // Scholarship / not-applicable batches owe nothing, whatever the sheet's balance says.
+  b.pending = b.fee_status === 'na' ? 0 : Math.max(Number(b.pending_balance) || 0, 0);
+  b.status = batchStatus(b);
+  b.pay = payState(b);
+  b.search = [b.batch_number, b.course_label, b.selected_course, b.paying_org_name, b.school_contact_name, b.school_contact_number,
+    b.referral_name, pretty(LABELS.lab, b.lab_center), pretty(LABELS.course_type, b.course_type)].join(' ').toLowerCase();
+  return b;
 }
 
-function getField(row,...keys){
-  for(const k of keys){
-    for(const rk of Object.keys(row)){
-      if(rk===k||rk.endsWith('/'+k)){
-        const v=row[rk];
-        if(v!==null&&v!==undefined&&v!=='')return String(v);
-      }
-    }
+// ---------- server ----------
+async function fetchWithTimeout(url, options, ms){
+  const c = new AbortController();
+  const timer = setTimeout(()=>c.abort(), ms || 30000);
+  try{ return await fetch(url, Object.assign({}, options, {signal: c.signal})); }
+  finally{ clearTimeout(timer); }
+}
+function configured(){
+  return !/PASTE_YOUR/.test(CONFIG.APPS_SCRIPT_URL) && !/PASTE_YOUR/.test(CONFIG.VIEW_TOKEN);
+}
+// Make sure the deployed script knows the tracker actions before sending anything:
+// an outdated script could mistake an unknown request for a registration.
+async function ensureScript(){
+  if(scriptChecked) return;
+  const resp = await fetchWithTimeout(CONFIG.APPS_SCRIPT_URL, {method:'GET'}, 20000);
+  const info = await resp.json();
+  const m = /^v(\d+)/.exec(String(info && info.version || ''));
+  if(!m || Number(m[1]) < CONFIG.MIN_SCRIPT_VERSION){
+    throw new Error('The Apps Script behind this link is out of date. Paste the latest Code.gs, create a new deployment, and use that Web app URL here.');
   }
-  return '';
+  scriptChecked = true;
 }
-
-function fmtDate(d){
-  if(!d)return'—';
-  try{return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'});}
-  catch{return d.slice(0,10);}
-}
-
-function getMonthKey(dateStr){
-  if(!dateStr)return'';
-  try{
-    const d=new Date(dateStr);
-    return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-  }catch{return'';}
-}
-
-function getMonthLabel(key){
-  if(!key)return'';
-  const [y,m]=key.split('-');
-  const d=new Date(parseInt(y),parseInt(m)-1,1);
-  return d.toLocaleDateString('en-IN',{month:'long',year:'numeric'});
-}
-
-async function fetchAllPages(server,uid,token){
-  let results=[],url=`${server}/api/v2/assets/${uid}/data/?format=json&limit=100`;
-  while(url){
-    const res=await fetch(PROXY+encodeURIComponent(url),{headers:{'Authorization':`Token ${token}`,'x-requested-with':'XMLHttpRequest'}});
-    if(!res.ok)throw new Error(`API error ${res.status} — check your token and asset UID`);
-    const data=await res.json();
-    results=results.concat(data.results||[]);
-    url=data.next||null;
-  }
-  return results;
-}
-
-function groupByBatch(subs){
-  const map={};
-  for(const s of subs){
-    const bn=getField(s,'batch_number')||'Unknown';
-    const ns=parseInt(getField(s,'num_students'))||0;
-    const course=getField(s,'selected_course');
-    const lab=getField(s,'lab_center');
-    const date=s._submission_time||s.end||'';
-    if(!map[bn])map[bn]={batch:bn,course,lab,total:0,submissions:[],lastDate:''};
-    map[bn].total+=ns;
-    map[bn].submissions.push({date,count:ns,id:s._id||''});
-    if(date>map[bn].lastDate)map[bn].lastDate=date;
-    if(!map[bn].course&&course)map[bn].course=course;
-    if(!map[bn].lab&&lab)map[bn].lab=lab;
-  }
-  return Object.values(map).sort((a,b)=>{
-    const na=parseInt(a.batch),nb=parseInt(b.batch);
-    return(!isNaN(na)&&!isNaN(nb))?na-nb:a.batch.localeCompare(b.batch);
+async function api(action, extra){
+  await ensureScript();
+  const resp = await fetchWithTimeout(CONFIG.APPS_SCRIPT_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify(Object.assign({token: CONFIG.VIEW_TOKEN, action}, extra || {}))
   });
+  const result = await resp.json();
+  if(result.status !== 'success') throw new Error(result.message || 'The server did not accept the request.');
+  return result;
+}
+function friendlyError(err){
+  if(err && err.name === 'AbortError') return 'The request timed out. Check your connection and try again.';
+  return (err && err.message) ? err.message : 'Something went wrong.';
 }
 
-function populateFilters(batches){
-  const courses=[...new Set(batches.map(b=>b.course).filter(Boolean))].sort();
-  const labs=[...new Set(batches.map(b=>b.lab).filter(Boolean))].sort();
-  const monthKeys=[...new Set(batches.map(b=>getMonthKey(b.lastDate)).filter(Boolean))].sort().reverse();
-
-  const cs=document.getElementById('filter-course');
-  const ls=document.getElementById('filter-lab');
-  const ms=document.getElementById('filter-month');
-
-  const prev={c:cs.value,l:ls.value,m:ms.value};
-
-  cs.innerHTML='<option value="">All Courses</option>'+courses.map(c=>`<option value="${c}">${c}</option>`).join('');
-  ls.innerHTML='<option value="">All Labs</option>'+labs.map(l=>`<option value="${l}">${l}</option>`).join('');
-  ms.innerHTML='<option value="">All Months</option>'+monthKeys.map(k=>`<option value="${k}">${getMonthLabel(k)}</option>`).join('');
-
-  // restore previous selection if still valid
-  if(prev.c&&courses.includes(prev.c))cs.value=prev.c;
-  if(prev.l&&labs.includes(prev.l))ls.value=prev.l;
-  if(prev.m&&monthKeys.includes(prev.m))ms.value=prev.m;
+// ---------- loading ----------
+function setState(kind, text, withRetry){
+  els.state.className = 'state' + (kind === 'error' ? ' error' : '');
+  els.state.textContent = text || '';
+  if(withRetry){
+    const b = el('button', {type:'button', text:'Try again'});
+    b.addEventListener('click', load);
+    els.state.appendChild(document.createElement('br'));
+    els.state.appendChild(b);
+  }
+  els.state.classList.toggle('hidden', !text);
 }
-
-function getFilteredBatches(){
-  const course=document.getElementById('filter-course').value;
-  const lab=document.getElementById('filter-lab').value;
-  const month=document.getElementById('filter-month').value;
-  return lastBatches.filter(b=>{
-    if(course&&b.course!==course)return false;
-    if(lab&&b.lab!==lab)return false;
-    if(month&&getMonthKey(b.lastDate)!==month)return false;
-    return true;
-  });
-}
-
-function filtersActive(){
-  return !!(document.getElementById('filter-course').value||
-            document.getElementById('filter-lab').value||
-            document.getElementById('filter-month').value);
-}
-
-function resetFilters(){
-  document.getElementById('filter-course').value='';
-  document.getElementById('filter-lab').value='';
-  document.getElementById('filter-month').value='';
-  applyFilters();
-}
-
-function applyFilters(){
-  const filtered=getFilteredBatches();
-  const active=filtersActive();
-  document.getElementById('filter-reset').classList.toggle('visible',active);
-  const total=lastBatches.length;
-  document.getElementById('section-title').textContent=
-    active?`Batches (${filtered.length} of ${total})`:'All Batches';
-  renderStats(filtered);
-  renderTable(filtered);
-  renderMobile(filtered);
-}
-
-function renderStats(batches){
-  const students=batches.reduce((s,b)=>s+b.total,0);
-  const courses=new Set(batches.map(b=>b.course).filter(Boolean)).size;
-  document.getElementById('stats').innerHTML=`
-    <div class="stat">
-      <div class="stat-label">Batches</div>
-      <div class="stat-num">${batches.length}</div>
-      <div class="stat-sub">batches tracked</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Students Registered</div>
-      <div class="stat-num">${students}</div>
-      <div class="stat-sub">across all batches</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Courses</div>
-      <div class="stat-num">${courses}</div>
-      <div class="stat-sub">unique courses</div>
-    </div>
-  `;
-}
-
-function renderTable(batches){
-  const tbody=document.getElementById('tbody');
-  tbody.innerHTML='';
-  if(!batches.length){
-    tbody.innerHTML=`<tr><td colspan="5"><div class="center-msg">No batches match the selected filters.</div></td></tr>`;
+async function load(){
+  if(!configured()){
+    els.tableWrap.classList.add('hidden');
+    setState('error', 'Setup needed: open this file and fill in CONFIG.APPS_SCRIPT_URL and CONFIG.VIEW_TOKEN at the top of the script.');
     return;
   }
-  for(const b of batches){
-    const tr=document.createElement('tr');
-    tr.className='batch-row';
-    tr.innerHTML=`
-      <td><span class="batch-badge">Batch ${b.batch}</span></td>
-      <td><div class="course-name">${b.course||'—'}</div></td>
-      <td style="color:var(--muted);font-size:13px">${b.lab||'—'}</td>
-      <td><span class="count-big">${b.total}</span></td>
-      <td class="date-cell">${fmtDate(b.lastDate)}</td>
-    `;
-    tbody.appendChild(tr);
-  }
-}
-
-function renderMobile(batches){
-  const list=document.getElementById('mobile-list');
-  list.innerHTML='';
-  for(const b of batches){
-    const card=document.createElement('div');
-    card.className='mobile-batch-card';
-    card.innerHTML=`
-      <div class="mobile-batch-header">
-        <div class="mobile-batch-meta">
-          <div class="mobile-batch-num">Batch ${b.batch}</div>
-          <div class="mobile-batch-course">${b.course||'No course'}</div>
-        </div>
-        <div class="mobile-batch-right">
-          <div class="mobile-batch-count">${b.total}</div>
-          <div class="mobile-batch-label">students</div>
-        </div>
-      </div>
-      <div class="mobile-batch-footer">
-        <span class="mobile-batch-date">Last: ${fmtDate(b.lastDate)}</span>
-        <span class="mobile-batch-lab">${b.lab||'—'}</span>
-      </div>
-    `;
-    list.appendChild(card);
-  }
-}
-
-function downloadCSV(type){
-  const filtered=getFilteredBatches();
-  if(!filtered.length)return;
-  let rows,filename;
-  if(type==='summary'){
-    rows=[['Batch Number','Course','Lab / Center','Students Enrolled','Last Entry Date']];
-    for(const b of filtered)rows.push([b.batch,b.course||'',b.lab||'',b.total,fmtDate(b.lastDate)]);
-    filename='batch_summary.csv';
-  }else{
-    rows=[['Batch Number','Course','Lab / Center','Enrollment Date','Full Name','Age','Gender','Current Status','School / College','Village / City','Mobile','Email','Student ID','Enrollment ID']];
-    const filteredBatchNums=new Set(filtered.map(b=>b.batch));
-    for(const s of lastSubs){
-      const batch=getField(s,'batch_number');
-      if(!filteredBatchNums.has(batch))continue;
-      const course=getField(s,'selected_course'),lab=getField(s,'lab_center');
-      const date=getField(s,'enroll_date'),eid=getField(s,'enrollment_id');
-      const students=s['students']||s['grp_batch/students']||[];
-      for(const st of students){
-        const gf=k=>{for(const rk of Object.keys(st))if(rk===k||rk.endsWith('/'+k))return String(st[rk]||'');return'';};
-        rows.push([batch,course,lab,date,gf('full_name'),gf('age'),gf('gender'),gf('current_grade'),
-          gf('school_name')||gf('college_name'),gf('address'),gf('mobile_number'),gf('email_id'),gf('student_id'),eid]);
-      }
-    }
-    filename='students.csv';
-  }
-  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-  a.download=filename;a.click();
-}
-
-async function fetchData(){
-  const server=document.getElementById('server').value;
-  const token=document.getElementById('token').value.trim();
-  const uid=document.getElementById('uid').value.trim();
-  document.getElementById('banner-area').innerHTML='';
-  document.getElementById('dashboard').style.display='none';
-  document.getElementById('loading-area').innerHTML=`<div class="center-msg"><div class="spinner"></div>Loading submissions…</div>`;
-  document.getElementById('refresh-btn').disabled=true;
-  const pill=document.getElementById('sync-pill');
-  pill.style.display='inline-flex';
-  pill.className='sync-pill syncing';
-  document.getElementById('sync-text').textContent='syncing';
-  document.querySelector('#sync-pill .dot').classList.add('pulse');
-
+  els.refresh.disabled = true;
+  setState('info', 'Loading batches\u2026');
+  els.tableWrap.classList.add('hidden');
   try{
-    const subs=await fetchAllPages(server,uid,token);
-    lastSubs=subs;
-    lastBatches=groupByBatch(subs);
-    populateFilters(lastBatches);
-    const filtered=getFilteredBatches();
-    renderStats(filtered);
-    renderTable(filtered);
-    renderMobile(filtered);
-    document.getElementById('dashboard').style.display='block';
-    const t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-    pill.className='sync-pill';
-    document.getElementById('sync-text').textContent=t;
-    document.querySelector('#sync-pill .dot').classList.remove('pulse');
-    if(!subs.length)document.getElementById('banner-area').innerHTML=`<div class="banner banner-ok">Connected — no submissions yet.</div>`;
-  }catch(e){
-    document.getElementById('banner-area').innerHTML=`<div class="banner banner-err"><strong>Error:</strong> ${e.message}</div>`;
-    pill.style.display='none';
-  }finally{
-    document.getElementById('loading-area').innerHTML='';
-    document.getElementById('refresh-btn').disabled=false;
+    const r = await api('list_batches');
+    ALL = (r.batches || []).map(normalize);
+    studentCache.clear();
+    buildOptions();
+    const d = new Date();
+    els.updated.textContent = 'Updated ' + d.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+    render();
+  } catch(err){
+    ALL = [];
+    els.count.textContent = '';
+    setState('error', friendlyError(err), true);
+  } finally {
+    els.refresh.disabled = false;
   }
 }
 
-window.onload=fetchData;
+// ---------- filters ----------
+function buildOptions(){
+  const keep = {type: els.type.value, lab: els.lab.value};
+  const fill = (sel, values, labelFn, current)=>{
+    sel.innerHTML = '';
+    sel.appendChild(el('option', {value:'', text:'All'}));
+    values.forEach(v=>sel.appendChild(el('option', {value:v, text:labelFn(v)})));
+    sel.value = values.includes(current) ? current : '';
+  };
+  const uniq = key => [...new Set(ALL.map(b=>b[key]).filter(Boolean))].sort();
+  fill(els.type, uniq('course_type'), v=>pretty(LABELS.course_type, v), keep.type);
+  fill(els.lab, uniq('lab_center'), v=>pretty(LABELS.lab, v), keep.lab);
+}
+function filtered(){
+  const q = els.search.value.trim().toLowerCase();
+  const st = els.status.value, pay = els.pay.value, ty = els.type.value, lab = els.lab.value;
+  const from = els.from.value, to = els.to.value;
+  const list = ALL.filter(b=>{
+    if(q && !b.search.includes(q)) return false;
+    if(st && b.status !== st) return false;
+    if(pay === 'pending' && !(b.pending > 0)) return false;
+    if(pay === 'paid' && b.pay !== 'paid') return false;
+    if(pay === 'unpaid' && b.pay !== 'unpaid') return false;
+    if(ty && b.course_type !== ty) return false;
+    if(lab && b.lab_center !== lab) return false;
+    if(from && !(b.enroll_date >= from)) return false;
+    if(to && !(b.enroll_date && b.enroll_date <= to)) return false;
+    return true;
+  });
+  const by = els.sort.value;
+  const cmp = {
+    batch_desc:(a,b)=>b.batchNum - a.batchNum,
+    batch_asc:(a,b)=>a.batchNum - b.batchNum,
+    start_desc:(a,b)=>String(b.enroll_date).localeCompare(String(a.enroll_date)),
+    start_asc:(a,b)=>String(a.enroll_date).localeCompare(String(b.enroll_date)),
+    pending_desc:(a,b)=>b.pending - a.pending,
+    students_desc:(a,b)=>b.num_students - a.num_students
+  }[by];
+  return list.sort(cmp);
+}
+
+// ---------- rendering ----------
+function cell(label, cls, children){
+  const td = el('td', {'data-label': label, class: cls || ''}, children);
+  return td;
+}
+function render(){
+  const list = filtered();
+  const sumStudents = list.reduce((s,b)=>s + b.num_students, 0);
+  const sumPending = list.reduce((s,b)=>s + b.pending, 0);
+  els.tBatches.textContent = list.length;
+  els.tStudents.textContent = sumStudents.toLocaleString('en-IN');
+  els.tOngoing.textContent = list.filter(b=>b.status === 'ongoing').length;
+  els.tPending.textContent = rupees(sumPending);
+  els.count.textContent = list.length === ALL.length
+    ? `${ALL.length} batch${ALL.length === 1 ? '' : 'es'}`
+    : `${list.length} of ${ALL.length} batches match`;
+
+  els.body.innerHTML = '';
+  if(!ALL.length){
+    els.tableWrap.classList.add('hidden');
+    setState('info', 'No batches have been registered yet.');
+    return;
+  }
+  if(!list.length){
+    els.tableWrap.classList.add('hidden');
+    setState('info', 'No batches match these filters.');
+    const b = el('button', {type:'button', text:'Clear filters'});
+    b.addEventListener('click', clearFilters);
+    els.state.appendChild(document.createElement('br'));
+    els.state.appendChild(b);
+    return;
+  }
+  setState('info', '');
+  els.tableWrap.classList.remove('hidden');
+  const frag = document.createDocumentFragment();
+  list.forEach(b=>{
+    const tr = el('tr', {class:'row', tabindex:'0', 'aria-label':'Open batch ' + b.batch_number});
+    tr.appendChild(cell('Batch', 'batch', [b.batch_number]));
+    tr.appendChild(cell('Course', '', [
+      el('span', {text: b.course_label || b.selected_course}),
+      el('span', {class:'sub', text: [pretty(LABELS.lab, b.lab_center), b.duration].filter(Boolean).join(' \u00B7 ')})
+    ]));
+    tr.appendChild(cell('Dates', '', [
+      el('span', {text: fmtDate(b.enroll_date) || '\u2014'}),
+      b.course_end_date ? el('span', {class:'sub', text:'to ' + fmtDate(b.course_end_date)}) : null
+    ]));
+    tr.appendChild(cell('Status', '', [chip(b.status, STATUS_TEXT[b.status])]));
+    tr.appendChild(cell('Students', 'num mono', [String(b.num_students)]));
+    tr.appendChild(cell('Total fee', 'num mono', [rupees(b.total_fee)]));
+    tr.appendChild(cell('Paid', 'num mono', [rupees(b.fee_paid)]));
+    tr.appendChild(cell('Pending', 'num mono' + (b.pending > 0 ? ' pending-pos' : ''), [rupees(b.pending)]));
+    tr.appendChild(cell('Payment', '', [chip(b.pay, PAY_TEXT[b.pay])]));
+    tr.addEventListener('click', ()=>openBatch(b));
+    tr.addEventListener('keydown', e=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openBatch(b); } });
+    frag.appendChild(tr);
+  });
+  els.body.appendChild(frag);
+}
+function clearFilters(){
+  els.search.value = ''; els.status.value = ''; els.pay.value = ''; els.type.value = ''; els.lab.value = '';
+  els.from.value = ''; els.to.value = ''; els.sort.value = 'batch_desc';
+  render();
+}
+
+// ---------- batch details ----------
+function fact(label, value){
+  return el('div', null, [el('dt', {text:label}), el('dd', {text: value || '\u2014'})]);
+}
+function openBatch(b){
+  lastFocus = document.activeElement;
+  els.dTitle.textContent = 'Batch ' + b.batch_number;
+  els.dSub.textContent = b.course_label || b.selected_course;
+  els.dBody.innerHTML = '';
+
+  els.dBody.appendChild(el('h3', {text:'Batch'}));
+  els.dBody.appendChild(el('dl', {class:'facts'}, [
+    fact('Status', STATUS_TEXT[b.status]),
+    fact('Students', String(b.num_students)),
+    fact('Course type', pretty(LABELS.course_type, b.course_type)),
+    fact('Training center', pretty(LABELS.lab, b.lab_center)),
+    fact('Starts', fmtDate(b.enroll_date)),
+    fact('Ends', fmtDate(b.course_end_date)),
+    fact('Duration', b.duration),
+    fact('First registered', fmtDateTime(b.created_at)),
+    fact('Last updated', fmtDateTime(b.last_updated) + (b.top_up_count > 1 ? ` (${b.top_up_count} submissions)` : '')),
+    fact('Heard about us via', pretty(LABELS.how_know, b.how_know) + (b.referral_name ? ' \u2013 ' + b.referral_name : ''))
+  ]));
+
+  els.dBody.appendChild(el('h3', {text:'Payment'}));
+  const proof = /^https:\/\//.test(b.payment_proof_url) ? el('a', {href:b.payment_proof_url, target:'_blank', rel:'noopener noreferrer', text:'Open payment screenshot'}) : null;
+  const proofDd = proof || el('span', {text: b.payment_proof_url ? 'Not available' : '\u2014'});
+  els.dBody.appendChild(el('dl', {class:'facts'}, [
+    fact('Payment status', pretty(LABELS.fee_status, b.fee_status)),
+    fact('Fee per student', rupees(b.fee_per_head)),
+    fact('Total fee', rupees(b.total_fee)),
+    fact('Paid so far', rupees(b.fee_paid)),
+    fact('Pending', rupees(b.pending)),
+    fact('Paying school / organization', b.paying_org_name),
+    fact('Payment mode', pretty(LABELS.pay_mode, b.fee_pay_mode)),
+    el('div', null, [el('dt', {text:'Screenshot'}), el('dd', null, [proofDd])])
+  ]));
+
+  if(b.mobile_not_shared || b.school_contact_name || b.school_contact_number){
+    els.dBody.appendChild(el('h3', {text:'School contact'}));
+    if(b.mobile_not_shared) els.dBody.appendChild(el('div', {class:'notice', text:'The school did not share some or all student mobile numbers.'}));
+    els.dBody.appendChild(el('dl', {class:'facts', style:'margin-top:10px'}, [
+      fact('Contact person', b.school_contact_name),
+      fact('Contact number', b.school_contact_number)
+    ]));
+  }
+
+  els.dBody.appendChild(el('h3', {text:'Students'}));
+  const studentsBox = el('div', {id:'studentsBox'});
+  els.dBody.appendChild(studentsBox);
+
+  els.backdrop.classList.add('open');
+  els.drawer.classList.add('open');
+  document.body.classList.add('drawer-open');
+  els.dBody.scrollTop = 0;
+  els.dClose.focus();
+  loadStudents(b, studentsBox);
+}
+function closeDrawer(){
+  els.backdrop.classList.remove('open');
+  els.drawer.classList.remove('open');
+  document.body.classList.remove('drawer-open');
+  if(lastFocus && lastFocus.focus) lastFocus.focus();
+}
+async function loadStudents(b, box){
+  box.innerHTML = '';
+  if(studentCache.has(b.registration_id)){ showStudents(studentCache.get(b.registration_id), box); return; }
+  box.appendChild(el('div', {class:'state', text:'Loading students\u2026'}));
+  try{
+    const r = await api('get_batch_students', {registration_id: b.registration_id});
+    studentCache.set(b.registration_id, r.students || []);
+    if(!document.body.contains(box)) return; // another batch was opened meanwhile
+    showStudents(r.students || [], box);
+  } catch(err){
+    if(!document.body.contains(box)) return;
+    box.innerHTML = '';
+    const e = el('div', {class:'state error', text:friendlyError(err)});
+    const retry = el('button', {type:'button', text:'Try again'});
+    retry.addEventListener('click', ()=>loadStudents(b, box));
+    e.appendChild(document.createElement('br')); e.appendChild(retry);
+    box.appendChild(e);
+  }
+}
+function showStudents(students, box){
+  box.innerHTML = '';
+  if(!students.length){ box.appendChild(el('div', {class:'state', text:'No students found for this batch.'})); return; }
+  const search = el('input', {type:'search', placeholder:'Search students by name, ID, mobile or school', 'aria-label':'Search students'});
+  const count = el('span', {class:'hint mono', style:'font-size:12px;color:var(--ink-soft)'});
+  box.appendChild(el('div', {class:'stu-tools'}, [search, count]));
+  const table = el('table', {class:'stu'});
+  const head = el('tr');
+  ['#','Student ID','Name','Age','Gender','Status','Class','School / College','Village / City','Mobile','Email'].forEach(h=>head.appendChild(el('th', {text:h})));
+  table.appendChild(el('thead', null, [head]));
+  const tbody = el('tbody');
+  table.appendChild(tbody);
+  box.appendChild(el('div', {class:'stu-wrap'}, [table]));
+
+  function draw(){
+    const q = search.value.trim().toLowerCase();
+    tbody.innerHTML = '';
+    let shown = 0;
+    students.forEach((s, i)=>{
+      const hay = [s.full_name, s.student_id, s.mobile_number, s.school_name, s.college_name, s.address].join(' ').toLowerCase();
+      if(q && !hay.includes(q)) return;
+      shown++;
+      const tr = el('tr');
+      [String(i + 1), s.student_id, s.full_name, s.age, pretty(LABELS.gender, s.gender), pretty(LABELS.grade, s.current_grade),
+       s.student_class ? s.student_class + 'th' : '', s.school_name || s.college_name, s.address, s.mobile_number, s.email_id]
+        .forEach(v=>tr.appendChild(el('td', {text: v || '\u2014'})));
+      tbody.appendChild(tr);
+    });
+    count.textContent = shown === students.length ? `${students.length} student${students.length === 1 ? '' : 's'}` : `${shown} of ${students.length}`;
+  }
+  search.addEventListener('input', draw);
+  draw();
+}
+
+// ---------- wiring ----------
+['input','change'].forEach(evt=>{
+  [els.search, els.status, els.pay, els.type, els.lab, els.from, els.to, els.sort].forEach(c=>c.addEventListener(evt, render));
+});
+els.clear.addEventListener('click', clearFilters);
+els.refresh.addEventListener('click', load);
+els.dClose.addEventListener('click', closeDrawer);
+els.backdrop.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && els.drawer.classList.contains('open')) closeDrawer(); });
+
+load();
 </script>
 </body>
 </html>
